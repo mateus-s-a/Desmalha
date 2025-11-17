@@ -1,9 +1,3 @@
-Perfeito! Antes de elaborar todo o plano detalhado, preciso confirmar um ponto para personalizar melhor o projeto: vocês pretendem desenvolver a *calculadora de Análise de Malhas* como uma aplicação **web (React, Vue, etc.)** ou como uma **aplicação desktop (ex: Tkinter, Electron, etc.)**?  
-
-Enquanto isso, abaixo está uma proposta inicial baseada na suposição de um **projeto web em React com TypeScript**, que é moderna, eficiente e muito usada em contextos educacionais.
-
----
-
 ## **Product Backlog – “Calculadora de Análise de Malhas”**
 
 ### **Visão geral do projeto**
