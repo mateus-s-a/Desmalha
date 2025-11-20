@@ -1,6 +1,6 @@
 # Desmalha - Calculadora de Análise de Malhas
 
-Sistema web frontend para resolução automatizada de circuitos elétricos utilizando o método de Análise de Malhas. O projeto visa facilitar a resolução de circuitos planares através da aplicação sistemática das Leis de Kirchhoff (LKC) e Lei de Ohm, gerando sistemas de equações lineares e resolvendo-os matricialmente.
+> Sistema web frontend para resolução automatizada de circuitos elétricos utilizando o método de Análise de Malhas. O projeto visa facilitar a resolução de circuitos planares através da aplicação sistemática das Leis de Kirchhoff (LKC) e Lei de Ohm, gerando sistemas de equações lineares e resolvendo-os matricialmente.
 
 ## Visão Geral do Projeto
 
@@ -22,14 +22,16 @@ A **Desmalha** é uma aplicação web educacional e prática que permite aos usu
 
 | Área | Tecnologia | Versão | Justificativa |
 |------|------------|--------|---------------|
-| **Frontend** | React + TypeScript | 18.x / TS 5.9 | Componentização, tipagem forte e código escalável |
-| **Build Tool** | Vite | 7.2.2 | Build extremamente rápido e HMR otimizado |
-| **Estilo/UI** | TailwindCSS | 4.0 | Design responsivo ágil com CSS-first approach |
-| **Estado** | Zustand ou Context API | Latest | Gerenciamento de estado simples e performático |
-| **Matemática** | math.js | Latest | Resolução de sistemas lineares e operações matriciais |
+| **Frontend** | React + TypeScript | `18.x` / `TS 5.9` | Componentização, tipagem forte e código escalável |
+| **Build Tool** | Vite | `7.2.2` | Build extremamente rápido e HMR otimizado |
+| **Estilo/UI** | TailwindCSS | `4.0` | Design responsivo ágil com CSS-first approach |
+| **Estado** | Zustand ou Context API | `Latest` | Gerenciamento de estado simples e performático |
+| **Matemática** | math.js | `Latest` | Resolução de sistemas lineares e operações matriciais |
 | **Controle de Versão** | Git + GitHub | - | Colaboração e versionamento confiável |
-| **Testes** | Vitest | Latest | Testes unitários rápidos compatíveis com Vite |
+| **Testes** | Vitest | `Latest` | Testes unitários rápidos compatíveis com Vite |
 | **Hospedagem** | GitHub Pages | - | Deploy simples e gratuito |
+
+<br>
 
 ## Estrutura do Projeto
 
@@ -83,6 +85,8 @@ Desmalha/
 - npm ou yarn
 - Git
 
+<br>
+
 ### Instalação
 
 #### 1. Clonar o repositório
@@ -122,24 +126,29 @@ $ npm install mathjs zustand
 $ npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
 ```
 
+<br>
+
 ### Executar Localmente
 
-#### Modo desenvolvimento
+Modo **desenvolvimento**
 
 ```bash
 $ npm run dev
-Executar testes
 ```
+
+Executar **testes**:
 
 ```bash
 $ npm run test
-Build para produção
 ```
+
+Build para **produção**:
 
 ```bash
 $ npm run build
-Preview da build
 ```
+
+Preview da **build**:
 
 ```bash
 $ npm run preview
