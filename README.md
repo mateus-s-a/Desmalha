@@ -108,24 +108,6 @@ $ npm create vite@latest . -- --template react-ts
 $ npm install
 ```
 
-#### 4. Instalar TailwindCSS v4
-
-```bash
-$ npm install -D tailwindcss@next @tailwindcss/vite@next
-```
-
-#### 5. Instalar bibliotecas adicionais
-
-```bash
-$ npm install mathjs zustand
-```
-
-#### 6. Instalar ferramentas de teste
-
-```bash
-$ npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
-```
-
 <br>
 
 ### Executar Localmente
