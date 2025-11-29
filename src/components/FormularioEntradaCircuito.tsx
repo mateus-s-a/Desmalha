@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 
 interface FormularioEntradaCircuitoProps {
   onCalcular: (numMalhas: number, matrizR: number[][], vetorV: number[]) => void;
+  onLimpar?: () => void; // Novo callback opcional
 }
 
-const FormularioEntradaCircuito: React.FC<FormularioEntradaCircuitoProps> = ({ onCalcular }) => {
+const FormularioEntradaCircuito: React.FC<FormularioEntradaCircuitoProps> = ({ 
+  onCalcular,
+  onLimpar 
+}) => {
   const [numMalhas, setNumMalhas] = useState<number>(3);
   const [matrizR, setMatrizR] = useState<number[][]>([
     [10, -5, 0],
@@ -43,7 +47,7 @@ const FormularioEntradaCircuito: React.FC<FormularioEntradaCircuitoProps> = ({ o
     setVetorV(novoVetor);
   };
 
-  // Limpa todos os campos
+  // Limpa todos os campos e notifica o componente pai
   const handleLimpar = () => {
     setNumMalhas(3);
     setMatrizR([
@@ -52,6 +56,11 @@ const FormularioEntradaCircuito: React.FC<FormularioEntradaCircuitoProps> = ({ o
       [0, -8, 12]
     ]);
     setVetorV([20, 0, 15]);
+    
+    // Notifica o componente pai para limpar resultados
+    if (onLimpar) {
+      onLimpar();
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {

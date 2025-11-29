@@ -1,4 +1,3 @@
-import React from 'react';
 import Navbar from './components/Navbar';
 import Rodape from './components/Rodape';
 import Inicio from './pages/Inicio';
