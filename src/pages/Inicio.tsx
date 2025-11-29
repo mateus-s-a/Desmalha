@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
 import FormularioEntradaCircuito from '../components/FormularioEntradaCircuito';
 import TabelaResultadosMalha from '../components/TabelaResultadosMalha';
+import { calcularCorrentesMalha, ResultadoAnalise } from '../logic/analiseMalha';
 
 const Inicio: React.FC = () => {
   const [resultados, setResultados] = useState<number[] | null>(null);
   const [calculando, setCalculando] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
 
   const handleCalcular = (numMalhas: number, matrizR: number[][], vetorV: number[]) => {
     setCalculando(true);
+    setErro(null);
     
-    // Simulação de cálculo (mock) - será substituído pela lógica real na Fase 3
+    // Simula pequeno delay para melhor UX (opcional)
     setTimeout(() => {
-      // Mock: resultados fictícios baseados no número de malhas
-      const resultadosMock = Array(numMalhas)
-        .fill(0)
-        .map((_, i) => (i + 1) * 0.5 + Math.random() * 0.3);
+      const resultado: ResultadoAnalise = calcularCorrentesMalha(matrizR, vetorV);
       
-      setResultados(resultadosMock);
+      if (resultado.sucesso) {
+        setResultados(resultado.correntes);
+        setErro(null);
+      } else {
+        setResultados(null);
+        setErro(resultado.erro || 'Erro desconhecido ao calcular');
+      }
+      
       setCalculando(false);
-    }, 1500);
+    }, 300);
   };
 
   return (
@@ -41,6 +48,21 @@ const Inicio: React.FC = () => {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 flex-1">
         <div className="max-w-5xl mx-auto space-y-8">
+          {/* Mensagem de Erro */}
+          {erro && (
+            <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg animate-fade-in">
+              <div className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <h3 className="text-red-800 font-semibold mb-1">Erro no Cálculo</h3>
+                  <p className="text-red-700 text-sm">{erro}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Formulário de Entrada */}
           <FormularioEntradaCircuito onCalcular={handleCalcular} />
 
@@ -84,6 +106,30 @@ const Inicio: React.FC = () => {
                 <p>
                   <strong className="text-gray-800">Calcule:</strong> Clique em "Calcular Correntes" e aguarde os resultados aparecerem abaixo.
                 </p>
+              </div>
+            </div>
+
+            {/* Exemplo Prático */}
+            <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">📚 Exemplo Prático</h3>
+              <p className="text-sm text-gray-700 mb-3">
+                Para um circuito com 3 malhas, você pode usar os valores padrão já preenchidos:
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p className="font-semibold text-gray-800 mb-1">Matriz R (Ω):</p>
+                  <code className="block bg-white p-2 rounded border border-gray-300 font-mono text-xs">
+                    [10, -5, 0]<br/>
+                    [-5, 15, -8]<br/>
+                    [0, -8, 12]
+                  </code>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-800 mb-1">Vetor V (V):</p>
+                  <code className="block bg-white p-2 rounded border border-gray-300 font-mono text-xs">
+                    [20, 0, 15]
+                  </code>
+                </div>
               </div>
             </div>
           </div>
