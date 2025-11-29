@@ -1,6 +1,41 @@
 # Desmalha - Calculadora de Análise de Malhas
 
+<div align="center">
+
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![React](https://img.shields.io/badge/react-19.2.0-blue.svg)
+![TypeScript](https://img.shields.io/badge/typescript-5.9.3-blue.svg)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-4.0.0-blue.svg)
+![Vite](https://img.shields.io/badge/vite-7.2.2-blue.svg)
+![math.js](https://img.shields.io/badge/math.js-15.1.0-blue.svg)
+![Zustand](https://img.shields.io/badge/zustand-5.0.8-blue.svg)
+![Git](https://img.shields.io/badge/git-2.40.1-blue.svg)
+![GitHub](https://img.shields.io/badge/github-2.40.1-blue.svg)
+
 > Sistema web frontend para resolução automatizada de circuitos elétricos utilizando o método de Análise de Malhas. O projeto visa facilitar a resolução de circuitos planares através da aplicação sistemática das Leis de Kirchhoff (LKC) e Lei de Ohm, gerando sistemas de equações lineares e resolvendo-os matricialmente.
+
+</div>
+
+---
+
+## Índice
+- [Desmalha - Calculadora de Análise de Malhas](#desmalha---calculadora-de-análise-de-malhas)
+  - [Índice](#índice)
+  - [Visão Geral do Projeto](#visão-geral-do-projeto)
+  - [Objetivos](#objetivos)
+  - [Funcionalidades](#funcionalidades)
+  - [Tecnologias Utilizadas](#tecnologias-utilizadas)
+  - [Estrutura do Projeto](#estrutura-do-projeto)
+  - [Começando](#começando)
+    - [Pré-requisitos](#pré-requisitos)
+    - [Instalação](#instalação)
+      - [1. Clonar o repositório](#1-clonar-o-repositório)
+      - [2. Criar projeto com Vite (se não existir)](#2-criar-projeto-com-vite-se-não-existir)
+      - [3. Instalar dependências](#3-instalar-dependências)
+    - [Executar Localmente](#executar-localmente)
+  - [Fundamentos Teóricos](#fundamentos-teóricos)
+    - [Análise de Malhas](#análise-de-malhas)
 
 ## Visão Geral do Projeto
 
@@ -14,9 +49,23 @@ A **Desmalha** é uma aplicação web educacional e prática que permite aos usu
 ## Objetivos
 
 - **Educacional**: Demonstrar o método de Análise de Malhas de forma interativa
-- **Prático**: Facilitar cálculos rápidos e precisos de circuitos planares
+- **Prático**: Facilitar cálculos rápidos e precisos de **circuitos** planares
 - **Acessível**: Interface limpa e responsiva para uso em diferentes dispositivos
 - **Moderno**: Aplicação das melhores práticas de desenvolvimento web 2025
+
+<br>
+
+## Funcionalidades
+
+- **Cálculo Automático:** Resolução instantânea de sistemas lineares de equações
+- **Interface Intuitiva:** Facilidade de uso e compreensão do processo
+- **Validação em Tempo Real:** Feedback imediato dos valores inseridos
+- **Resultados Detalhados:** Exibição das correntes de malha com unidades e precisão
+- **Design Moderno:** Interface limpa e responsiva para uso em diferentes dispositivos
+- **Totalmente Responsivo:** Interface responsiva para uso em diferentes dispositivos
+- **Tratamento de Erros:** Feedback claro e específico para diferentes situações de erro
+
+<br>
 
 ## Tecnologias Utilizadas
 
@@ -37,11 +86,12 @@ A **Desmalha** é uma aplicação web educacional e prática que permite aos usu
 
 ```text
 Desmalha/
-│
-├── public/
-│ ├── index.html
-│ └── favicon.ico
-│
+|
+├── docs/
+│ ├── plano-desenvolvimento-desmalha-v3.md
+│ ├── fluxo-uso-sistema.md
+│ └── wireframe-descricao.md
+|
 ├── src/
 │ ├── assets/
 │ │ └── logo.svg
@@ -81,8 +131,8 @@ Desmalha/
 
 ### Pré-requisitos
 
-- Node.js >= 18.x
-- npm ou yarn
+- Node.js (recomendado: 18.x)
+- npm ou yarn (recomendado: npm)
 - Git
 
 <br>
@@ -96,7 +146,7 @@ $ git clone https://github.com/mateus-s-a/Desmalha.git
 $ cd Desmalha
 ````
 
-#### 2. Criar projeto com Vite
+#### 2. Criar projeto com Vite (se não existir)
 
 ```bash
 $ npm create vite@latest . -- --template react-ts
