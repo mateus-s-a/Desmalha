@@ -8,7 +8,7 @@ const Inicio: React.FC = () => {
   const [calculando, setCalculando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
 
-  const handleCalcular = (numMalhas: number, matrizR: number[][], vetorV: number[]) => {
+  const handleCalcular = (_numMalhas: number, matrizR: number[][], vetorV: number[]) => {
     setCalculando(true);
     setErro(null);
     
@@ -26,6 +26,13 @@ const Inicio: React.FC = () => {
       
       setCalculando(false);
     }, 300);
+  };
+
+  // Nova função para limpar resultados
+  const handleLimpar = () => {
+    setResultados(null);
+    setErro(null);
+    setCalculando(false);
   };
 
   return (
@@ -64,7 +71,10 @@ const Inicio: React.FC = () => {
           )}
 
           {/* Formulário de Entrada */}
-          <FormularioEntradaCircuito onCalcular={handleCalcular} />
+          <FormularioEntradaCircuito 
+            onCalcular={handleCalcular} 
+            onLimpar={handleLimpar}
+          />
 
           {/* Resultados */}
           <TabelaResultadosMalha resultados={resultados} calculando={calculando} />
