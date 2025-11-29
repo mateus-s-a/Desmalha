@@ -9,6 +9,7 @@ export default defineConfig({
         react(),
         tailwindcss()
     ],
+    base: '/Desmalha/', // Nome do repositório GitHub
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),
@@ -19,10 +20,39 @@ export default defineConfig({
             '@assets': path.resolve(__dirname, './src/assets')
         }
     },
+    build: {
+        outDir: 'dist',
+        sourcemap: false,
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true
+            }
+        },
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    'vendor-react': ['react', 'react-dom'],
+                    'vendor-math': ['mathjs']
+                }
+            }
+        }
+    },
     test: {
         globals: true,
         environment: 'jsdom',
         setupFiles: './src/tests/setup.ts',
-        css: true
+        css: true,
+        coverage: {
+            provider: 'v8',
+            reporter: ['text', 'json', 'html'],
+            exclude: [
+                'node_modules/',
+                'src/tests/',
+                '*.config.ts',
+                '*.config.js',
+            ]
+        }
     }
 });
