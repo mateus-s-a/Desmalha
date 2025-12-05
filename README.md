@@ -6,9 +6,13 @@ Bem-vindo ao **Desmalha**, uma ferramenta web estática para análise de circuit
 
 - **Análise de Malhas**: Cálculo de correntes de malha em circuitos planares com suporte a direção de fontes de tensão.
 - **Análise Nodal**: Cálculo de tensões nodais com suporte a direção de fontes de corrente (entrando/saindo).
-- **Interface Intuitiva**: Entrada de dados simplificada para componentes (Resistores, Fontes de Tensão e Corrente).
+- **🆕 Dois Modos de Entrada Flexíveis**:
+  - **Modo Componentes**: Interface intuitiva para adicionar componentes individuais
+  - **Modo Matriz Direta**: Insira diretamente a matriz do sistema linear [A|B] para resolução rápida
+- **Toggle Inteligente**: Alterne entre modos de entrada com um clique
 - **Controles de Direção**: Configure a polaridade/direção das fontes para análise precisa.
 - **Botão "Limpar Tudo"**: Remove rapidamente todos os componentes inseridos.
+- **Validação em Tempo Real**: Parser inteligente valida formato e dimensões da matriz
 - **Visualização de Matrizes**: Exibe a matriz do sistema linear gerado para fins educacionais.
 - **Design Responsivo**: Interface moderna adaptada para computadores e dispositivos móveis.
 - **Arquitetura Escalável**: Estrutura modular pronta para adicionar novos botões e funcionalidades.
@@ -50,16 +54,28 @@ Desmalha/
 
 1. Abra o arquivo `index.html` em seu navegador.
 2. Navegue até a calculadora desejada (Malhas ou Nodal).
-3. Defina o tamanho do sistema (número de malhas ou nós).
-4. Adicione os componentes, especificando seus valores e conexões:
+3. **Escolha o modo de entrada** usando o toggle no topo da página:
+
+### 🧩 Modo Componentes
+4. Defina o tamanho do sistema (número de malhas ou nós).
+5. Adicione os componentes, especificando seus valores e conexões:
    - Para **Malhas**: 
      - Indique quais malhas o componente toca (ex: `1` para malha 1, ou `1,2` para compartilhado).
      - Para fontes de tensão, escolha a direção (horário/anti-horário) na malha principal.
    - Para **Nós**: 
      - Indique os nós de conexão (ex: `0,1` conecta terra ao nó 1, ou `1,2` entre nós).
      - Para fontes de corrente, escolha se a corrente está **entrando** (positiva) ou **saindo** (negativa) do primeiro nó.
-5. Use o botão **"Limpar Tudo"** para resetar todos os componentes inseridos.
-6. Clique em **Calcular** para ver as correntes ou tensões resultantes.
+6. Use o botão **"Limpar Tudo"** para resetar todos os componentes inseridos.
+7. Clique em **Calcular** para ver as correntes ou tensões resultantes.
+
+### 📊 Modo Matriz Direta
+4. Insira a matriz aumentada [A|B] no campo de texto:
+   - Para **Malhas**: [R|V] onde R = resistências, V = tensões
+   - Para **Nodal**: [G|I] onde G = condutâncias, I = correntes
+5. Separe os valores por espaços ou tabulações
+6. Use o botão **"Exemplo"** para carregar uma matriz de demonstração
+7. O sistema valida automaticamente o formato (matriz n×(n+1))
+8. Clique em **Calcular** para resolver o sistema
 
 ## ⚠️ Notas de Desenvolvimento
 
@@ -67,13 +83,20 @@ Desmalha/
 - Bibliotecas externas grandes foram referenciadas via CDN para otimização.
 - A lógica de resolução matemática é executada inteiramente no navegador do cliente.
 
-## 📋 Funcionalidades Implementadas (v1.1)
+## 📋 Funcionalidades Implementadas (v1.2)
 
 ### ✅ Core Features
 - [x] Análise de Malhas funcional
 - [x] Análise Nodal funcional
 - [x] Resolução de sistemas lineares (Eliminação Gaussiana)
 - [x] Interface responsiva e moderna
+
+### ✅ Modos de Entrada (NOVO v1.2)
+- [x] **Modo Componentes**: Interface intuitiva para construção do circuito
+- [x] **Modo Matriz Direta**: Entrada de sistema linear [A|B] já montado
+- [x] Toggle visual entre modos com um clique
+- [x] Parser inteligente com validação em tempo real
+- [x] Exemplos pré-carregados para demonstração
 
 ### ✅ Controles de Direção
 - [x] Fontes de Tensão: Direção horária/anti-horária (Malhas)
@@ -83,17 +106,21 @@ Desmalha/
 - [x] Botão "Limpar Tudo" para reset rápido
 - [x] Botões de remoção individual por componente
 - [x] Visualização educacional de matrizes
+- [x] Feedback visual de validação (verde/amarelo/vermelho)
+- [x] Preview em tempo real (modo matriz)
 
 ### ✅ Arquitetura Escalável
 - [x] Sistema modular com ES6 Modules
 - [x] Tipagem robusta com `data-type` attributes
 - [x] Estrutura preparada para novos botões e funcionalidades
+- [x] Parser extensível para diferentes formatos
 - [x] Documentação técnica completa
 
 ### ✅ Documentação
 - [x] README.md com guia de uso
-- [x] Manual do Usuário detalhado
+- [x] Manual do Usuário detalhado (com seção Modo Matriz)
 - [x] Documentação Técnica com padrões de código
+- [x] Guia de Exemplos de Matrizes com casos práticos
 - [x] Exemplos de testes unitários
 
 ## 📚 Documentação Adicional

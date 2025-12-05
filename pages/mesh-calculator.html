@@ -26,7 +26,14 @@
 
     <main class="container">
         <h2><i class="fa-solid fa-border-all"></i> Calculadora de Análise de Malhas</h2>
-        <p class="mb-4">Defina o número de malhas e adicione os componentes (Resistores ou Fontes de Tensão). Para componentes compartilhados, indique os números das malhas (ex: 1,2).</p>
+        
+        <!-- Mode Toggle -->
+        <div id="mode-toggle-container"></div>
+
+        <!-- Instructions -->
+        <div id="instructions-container">
+            <p class="mb-4">Defina o número de malhas e adicione os componentes (Resistores ou Fontes de Tensão). Para componentes compartilhados, indique os números das malhas (ex: 1,2).</p>
+        </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="card" id="input-container">
@@ -35,7 +42,7 @@
             <div id="results-container">
                 <!-- Results Rendered Here -->
                 <div class="card bg-white">
-                    <p style="color: #666; text-align: center;">Adicione componentes e clique em Calcular para ver os resultados.</p>
+                    <p style="color: #666; text-align: center;">Adicione componentes ou insira uma matriz e clique em Calcular.</p>
                 </div>
             </div>
         </div>
@@ -49,25 +56,95 @@
 
     <script type="module">
         import { CircuitInput } from '../assets/js/components/circuit-input.js';
+        import { MatrixInput } from '../assets/js/components/matrix-input.js';
+        import { ModeToggle } from '../assets/js/components/mode-toggle.js';
         import { ResultsDisplay } from '../assets/js/components/results-display.js';
         import { MeshAnalyzer } from '../assets/js/modules/mesh-analysis.js';
+        import { MatrixSolver } from '../assets/js/modules/matrix-operations.js';
 
-        const input = new CircuitInput('input-container', 'mesh');
         const display = new ResultsDisplay('results-container');
         const analyzer = new MeshAnalyzer();
 
-        input.render();
+        let currentInput = null;
+        let currentMode = 'components';
 
-        document.getElementById('solve-btn').addEventListener('click', () => {
+        // Initialize Mode Toggle
+        const modeToggle = new ModeToggle('mode-toggle-container', (mode) => {
+            currentMode = mode;
+            switchMode(mode);
+        });
+        modeToggle.render();
+
+        // Initialize with components mode
+        switchMode('components');
+
+        function switchMode(mode) {
+            const instructionsContainer = document.getElementById('instructions-container');
+            
+            if (mode === 'components') {
+                // Component input mode
+                currentInput = new CircuitInput('input-container', 'mesh');
+                currentInput.render();
+                
+                instructionsContainer.innerHTML = `
+                    <p class="mb-4">
+                        <i class="fa-solid fa-info-circle"></i> 
+                        Defina o número de malhas e adicione os componentes (Resistores ou Fontes de Tensão). 
+                        Para componentes compartilhados, indique os números das malhas (ex: 1,2).
+                    </p>
+                `;
+
+                // Attach solve event
+                document.getElementById('solve-btn').addEventListener('click', solveFromComponents);
+
+            } else {
+                // Matrix input mode
+                currentInput = new MatrixInput('input-container', 'mesh');
+                currentInput.render();
+                
+                instructionsContainer.innerHTML = `
+                    <p class="mb-4">
+                        <i class="fa-solid fa-info-circle"></i> 
+                        Insira a matriz aumentada [R|V] onde [R] é a matriz de resistências e [V] é o vetor de tensões.
+                        Formato: cada linha representa uma equação, separada por espaços. Última coluna = vetor de constantes.
+                    </p>
+                `;
+
+                // Attach solve event
+                document.getElementById('solve-matrix-btn').addEventListener('click', solveFromMatrix);
+            }
+        }
+
+        function solveFromComponents() {
             try {
-                const data = input.getData();
+                const data = currentInput.getData();
                 const results = analyzer.solve(data.size, data.components);
                 display.showResults(results, 'mesh');
             } catch (error) {
                 display.showError(error.message || 'Erro ao calcular. Verifique os dados de entrada.');
                 console.error(error);
             }
-        });
+        }
+
+        function solveFromMatrix() {
+            try {
+                const { matrix, vector, size } = currentInput.getData();
+                
+                // Solve directly using MatrixSolver
+                const currents = MatrixSolver.solve(matrix, vector);
+                
+                const results = {
+                    currents: currents,
+                    matrix: matrix,
+                    vector: vector
+                };
+                
+                display.showResults(results, 'mesh');
+            } catch (error) {
+                display.showError(error.message || 'Erro ao calcular. Verifique a matriz de entrada.');
+                console.error(error);
+            }
+        }
     </script>
 </body>
 </html>

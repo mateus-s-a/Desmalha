@@ -26,7 +26,14 @@
 
     <main class="container">
         <h2><i class="fa-solid fa-circle-nodes"></i> Calculadora de Análise Nodal</h2>
-        <p class="mb-4">Defina o número de nós (excluindo o terra) e adicione componentes. Conecte resistores ou fontes de corrente entre nós (use 0 para Terra).</p>
+        
+        <!-- Mode Toggle -->
+        <div id="mode-toggle-container"></div>
+
+        <!-- Instructions -->
+        <div id="instructions-container">
+            <p class="mb-4">Defina o número de nós (excluindo o terra) e adicione componentes. Conecte resistores ou fontes de corrente entre nós (use 0 para Terra).</p>
+        </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="card" id="input-container">
@@ -34,7 +41,7 @@
             </div>
             <div id="results-container">
                 <div class="card bg-white">
-                    <p style="color: #666; text-align: center;">Adicione componentes e clique em Calcular para ver os resultados.</p>
+                    <p style="color: #666; text-align: center;">Adicione componentes ou insira uma matriz e clique em Calcular.</p>
                 </div>
             </div>
         </div>
@@ -48,25 +55,95 @@
 
     <script type="module">
         import { CircuitInput } from '../assets/js/components/circuit-input.js';
+        import { MatrixInput } from '../assets/js/components/matrix-input.js';
+        import { ModeToggle } from '../assets/js/components/mode-toggle.js';
         import { ResultsDisplay } from '../assets/js/components/results-display.js';
         import { NodalAnalyzer } from '../assets/js/modules/nodal-analysis.js';
+        import { MatrixSolver } from '../assets/js/modules/matrix-operations.js';
 
-        const input = new CircuitInput('input-container', 'nodal');
         const display = new ResultsDisplay('results-container');
         const analyzer = new NodalAnalyzer();
 
-        input.render();
+        let currentInput = null;
+        let currentMode = 'components';
 
-        document.getElementById('solve-btn').addEventListener('click', () => {
+        // Initialize Mode Toggle
+        const modeToggle = new ModeToggle('mode-toggle-container', (mode) => {
+            currentMode = mode;
+            switchMode(mode);
+        });
+        modeToggle.render();
+
+        // Initialize with components mode
+        switchMode('components');
+
+        function switchMode(mode) {
+            const instructionsContainer = document.getElementById('instructions-container');
+            
+            if (mode === 'components') {
+                // Component input mode
+                currentInput = new CircuitInput('input-container', 'nodal');
+                currentInput.render();
+                
+                instructionsContainer.innerHTML = `
+                    <p class="mb-4">
+                        <i class="fa-solid fa-info-circle"></i> 
+                        Defina o número de nós (excluindo o terra) e adicione componentes. 
+                        Conecte resistores ou fontes de corrente entre nós (use 0 para Terra).
+                    </p>
+                `;
+
+                // Attach solve event
+                document.getElementById('solve-btn').addEventListener('click', solveFromComponents);
+
+            } else {
+                // Matrix input mode
+                currentInput = new MatrixInput('input-container', 'nodal');
+                currentInput.render();
+                
+                instructionsContainer.innerHTML = `
+                    <p class="mb-4">
+                        <i class="fa-solid fa-info-circle"></i> 
+                        Insira a matriz aumentada [G|I] onde [G] é a matriz de condutâncias e [I] é o vetor de correntes.
+                        Formato: cada linha representa uma equação, separada por espaços. Última coluna = vetor de constantes.
+                    </p>
+                `;
+
+                // Attach solve event
+                document.getElementById('solve-matrix-btn').addEventListener('click', solveFromMatrix);
+            }
+        }
+
+        function solveFromComponents() {
             try {
-                const data = input.getData();
+                const data = currentInput.getData();
                 const results = analyzer.solve(data.size, data.components);
                 display.showResults(results, 'nodal');
             } catch (error) {
                 display.showError(error.message || 'Erro ao calcular. Verifique os dados de entrada.');
                 console.error(error);
             }
-        });
+        }
+
+        function solveFromMatrix() {
+            try {
+                const { matrix, vector, size } = currentInput.getData();
+                
+                // Solve directly using MatrixSolver
+                const voltages = MatrixSolver.solve(matrix, vector);
+                
+                const results = {
+                    voltages: voltages,
+                    matrix: matrix,
+                    vector: vector
+                };
+                
+                display.showResults(results, 'nodal');
+            } catch (error) {
+                display.showError(error.message || 'Erro ao calcular. Verifique a matriz de entrada.');
+                console.error(error);
+            }
+        }
     </script>
 </body>
 </html>

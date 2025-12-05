@@ -6,6 +6,15 @@ O **Desmalha** é uma ferramenta web para análise de circuitos elétricos DC qu
 - **Análise de Malhas** (Mesh Analysis)
 - **Análise Nodal** (Nodal Analysis)
 
+### 🆕 Modos de Entrada
+
+O Desmalha oferece **dois modos de entrada flexíveis**:
+
+1. **Modo Componentes** 🧩: Interface intuitiva para adicionar componentes individuais (resistores, fontes)
+2. **Modo Matriz Direta** 📊: Insira diretamente a matriz do sistema linear [A|B]
+
+Você pode alternar entre os modos usando o botão de toggle no topo de cada calculadora.
+
 ## Análise de Malhas
 
 ### O que é?
@@ -32,6 +41,32 @@ A Análise de Malhas calcula as correntes que circulam em cada malha (loop fecha
 ### Convenção de Sinais:
 - Correntes de malha são assumidas no sentido **horário** por padrão.
 - Uma fonte de tensão aumenta a tensão se a corrente entra pelo terminal negativo e sai pelo positivo.
+
+### 🆕 Modo Matriz Direta (Análise de Malhas)
+
+Se você já possui a matriz do sistema linear, pode inseri-la diretamente:
+
+**Formato:** Matriz aumentada [R|V]
+- [R] = Matriz de resistências (n x n)
+- [V] = Vetor de tensões (n x 1)
+
+**Exemplo de Entrada:**
+```
+50.00 0.00 0.00 -10.00 0.00 0.00  35.00
+0.00 110.00 -45.00 0.00 -47.00 0.00 -25.00
+0.00 -45.00 145.00 0.00 0.00 -100.00 -50.00
+-10.00 0.00 0.00 22.00 -12.00 0.00 75.00
+0.00 -47.00 0.00 -12.00 79.00 -20.00 90.00
+0.00 0.00 -100.00 0.00 -20.00 135.00 0.00
+```
+
+**Resultado:** Sistema 6x6 será resolvido diretamente, retornando as correntes de malha I₁, I₂, ..., I₆.
+
+**Dicas:**
+- Separe os valores por **espaços** ou **tabulações**
+- A última coluna é sempre o vetor de constantes
+- Use o botão "Exemplo" para carregar uma matriz de demonstração
+- O sistema valida automaticamente o formato da matriz
 
 ---
 
@@ -62,6 +97,31 @@ A Análise Nodal calcula a tensão em cada nó do circuito em relação ao nó d
 - **Corrente entrando em um nó** = Positiva no vetor de correntes.
 - **Corrente saindo de um nó** = Negativa no vetor de correntes.
 - O nó `0` é sempre o terra (referência, V = 0V).
+
+### 🆕 Modo Matriz Direta (Análise Nodal)
+
+Se você já possui a matriz do sistema linear, pode inseri-la diretamente:
+
+**Formato:** Matriz aumentada [G|I]
+- [G] = Matriz de condutâncias (n x n)
+- [I] = Vetor de correntes (n x 1)
+
+**Exemplo de Entrada:**
+```
+0.10 -0.10 0.00 0.00 15.00
+-0.10 0.26 -0.08 0.00 -5.00
+0.00 -0.08 0.14 -0.01 -7.00
+0.00 0.00 -0.01 0.08 4.00
+```
+
+**Resultado:** Sistema 4x4 será resolvido diretamente, retornando as tensões nodais V₁, V₂, V₃, V₄.
+
+**Dicas:**
+- Condutâncias são o inverso das resistências (G = 1/R)
+- Valores em Siemens (S)
+- Separe os valores por **espaços** ou **tabulações**
+- A última coluna é sempre o vetor de correntes
+- Use o botão "Exemplo" para carregar uma matriz de demonstração
 
 ---
 

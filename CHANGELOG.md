@@ -2,6 +2,54 @@
 
 Todas as mudanças notáveis do projeto serão documentadas neste arquivo.
 
+## [v1.2] - 2025-12-05
+
+### ✨ Novidades - Modo Matriz Direta
+
+#### Entrada de Matriz Direta
+- Novo **Modo Matriz Direta** em ambas as calculadoras (Malhas e Nodal)
+- Permite inserir diretamente a matriz aumentada [A|B] do sistema linear
+- Toggle elegante para alternar entre "Modo Componentes" e "Modo Matriz"
+- Ideal para usuários que já possuem o sistema linear pronto
+
+#### Parser de Matriz Inteligente
+- Criado módulo `MatrixParser` para validação e parsing
+- Suporta separação por espaços ou tabulações
+- Validação automática de dimensões (n × n+1)
+- Detecção de erros com mensagens claras:
+  - Valores inválidos (não numéricos)
+  - Dimensões inconsistentes
+  - Formato incorreto
+
+#### Componentes UI Novos
+- **ModeToggle**: Componente visual para alternância de modos
+- **MatrixInput**: Interface dedicada para entrada de matriz
+- Preview em tempo real com status de validação
+- Botão "Exemplo" para carregar matrizes de demonstração
+
+#### Exemplos Incluídos
+- Análise de Malhas: Sistema 6×6 complexo
+- Análise Nodal: Sistema 4×4 com condutâncias
+
+### 📝 Documentação
+
+- Atualizado `user-manual.md` com seções de Modo Matriz
+- Exemplos práticos de matrizes com explicações
+- Guia de formato e convenções
+
+### 📦 Arquivos Criados
+
+**JavaScript:**
+- `assets/js/utils/matrix-parser.js` - Parser e validador
+- `assets/js/components/matrix-input.js` - Interface de entrada
+- `assets/js/components/mode-toggle.js` - Toggle entre modos
+
+**HTML (atualizados):**
+- `pages/mesh-calculator.html` - Suporte duplo modo
+- `pages/nodal-calculator.html` - Suporte duplo modo
+
+---
+
 ## [v1.1] - 2025-12-05
 
 ### ✨ Novidades
