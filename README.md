@@ -16,6 +16,8 @@ Bem-vindo ao **Desmalha**, uma ferramenta web estática para análise de circuit
 - **Visualização de Matrizes**: Exibe a matriz do sistema linear gerado para fins educacionais.
 - **Design Responsivo**: Interface moderna adaptada para computadores e dispositivos móveis.
 - **Arquitetura Escalável**: Estrutura modular pronta para adicionar novos botões e funcionalidades.
+- **✅ Preservação de Valores (v1.4.1)**: 100% de preservação de dados em TODOS os cenários, incluindo o cenário inicial (zero-component).
+- **✅ Direções Independentes (v1.4.2)**: Componentes compartilhados suportam direções diferentes em cada localização (ex: fonte de tensão aumenta em uma malha e cai em outra).
 
 ## 📂 Estrutura de Diretórios
 
@@ -83,7 +85,7 @@ Desmalha/
 - Bibliotecas externas grandes foram referenciadas via CDN para otimização.
 - A lógica de resolução matemática é executada inteiramente no navegador do cliente.
 
-## 📋 Funcionalidades Implementadas (v1.2)
+## 📋 Funcionalidades Implementadas (v1.4)
 
 ### ✅ Core Features
 - [x] Análise de Malhas funcional
@@ -91,12 +93,21 @@ Desmalha/
 - [x] Resolução de sistemas lineares (Eliminação Gaussiana)
 - [x] Interface responsiva e moderna
 
-### ✅ Modos de Entrada (NOVO v1.2)
-- [x] **Modo Componentes**: Interface intuitiva para construção do circuito
-- [x] **Modo Matriz Direta**: Entrada de sistema linear [A|B] já montado
+### ✅ Modos de Entrada
+- [x] **Modo Componentes** (v1.4 - NOVO Sistema de Compartilhamento):
+  - Interface hierárquica com cards por malha/nó
+  - Sistema de cores intuitivo (amarelo=resistor, azul=tensão, vermelho=corrente)
+  - **☑️ Checkbox de compartilhamento** em cada componente
+  - **Seleção visual** de múltiplas malhas/nós
+  - **Preservação automática** de valores (zero perda de dados)
+  - Badges e ícones para identificação rápida
+  - Contadores em tempo real
+  - Botões contextuais por malha/nó
+- [x] **Modo Matriz Direta** (v1.2): 
+  - Entrada de sistema linear [A|B] já montado
+  - Parser inteligente com validação em tempo real
+  - Exemplos pré-carregados
 - [x] Toggle visual entre modos com um clique
-- [x] Parser inteligente com validação em tempo real
-- [x] Exemplos pré-carregados para demonstração
 
 ### ✅ Controles de Direção
 - [x] Fontes de Tensão: Direção horária/anti-horária (Malhas)

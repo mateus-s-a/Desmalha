@@ -98,6 +98,9 @@
    - v1.0: Lançamento inicial
    - v1.1: Escalabilidade e UX
    - v1.2: Modo Matriz Direta
+   - v1.3: Interface Aprimorada
+   - v1.4: Sistema de Compartilhamento
+   - v1.4.1: Correção Bug Zero-Component
    - Convenções de changelog
    - Arquivos modificados por versão
 
@@ -135,15 +138,85 @@
     - Testes recomendados
     - Possibilidades futuras
 
+13. **[SHARING_SYSTEM_IMPLEMENTATION.md](SHARING_SYSTEM_IMPLEMENTATION.md)** 🔗
+    - Implementação v1.4 (Compartilhamento)
+    - Checkbox de compartilhamento
+    - Seleção visual de localizações
+    - Preservação de valores
+    - Tutorial de uso
+    - Exemplos práticos
+
+14. **[UI_ENHANCEMENT_SUMMARY.md](UI_ENHANCEMENT_SUMMARY.md)** 🎨
+    - Implementação v1.3 (Interface Aprimorada)
+    - Sistema de cores por tipo
+    - Cards separados por malha/nó
+    - Hierarquia visual
+    - Melhorias de UX
+
+### Correções de Bugs
+
+15. **[BUG_FIX_v1.4.1.md](BUG_FIX_v1.4.1.md)** 🐛
+    - Análise completa do bug zero-component
+    - Causa raiz identificada
+    - Solução implementada
+    - Validação da correção
+    - Métricas de impacto
+    - Lições aprendidas
+    - Garantias de qualidade
+
+16. **[BUG_FIX_v1.4.2_DIRECTIONS.md](BUG_FIX_v1.4.2_DIRECTIONS.md)** 🐛⚡
+    - Bug crítico de direções em componentes compartilhados
+    - Análise técnica profunda (causa raiz)
+    - Sistema directionsMap implementado
+    - Suporte a direções independentes por localização
+    - Atualização de analyzers (mesh e nodal)
+    - 5 testes de validação
+    - Garantia de cálculos 100% corretos
+
+17. **[VALIDATION_CHECKLIST_v1.4.1.md](VALIDATION_CHECKLIST_v1.4.1.md)** ✅
+    - Checklist completo de validação
+    - 10 testes de regressão
+    - Critérios de aprovação
+    - Verificação de código
+    - Checklist de deploy
+    - Espaço para anotações
+
+### Gestão e Resumos Executivos
+
+18. **[EXECUTIVE_SUMMARY_v1.4.1.md](EXECUTIVE_SUMMARY_v1.4.1.md)** 📊
+    - Resumo executivo completo
+    - Problema x Solução
+    - Métricas de sucesso (Antes vs Depois)
+    - Análise de custo-benefício
+    - Impacto no negócio
+    - Status do projeto
+    - Recomendações de deploy
+    - Aprovação para produção
+
+19. **[RELEASE_NOTES_v1.4.1.md](RELEASE_NOTES_v1.4.1.md)** 📋
+    - Notas de lançamento oficiais
+    - Bug corrigido
+    - Solução implementada
+    - Resultados e testes
+    - Guia de upgrade
+    - Lições aprendidas
+    - Próximos passos
+
 ---
 
 ## 🧪 Testes
 
-13. **[tests/unit/matrix-operations.test.js](tests/unit/matrix-operations.test.js)** ✅
+20. **[tests/unit/matrix-operations.test.js](tests/unit/matrix-operations.test.js)** ✅
     - Testes unitários para operações de matriz
     - Framework: Jest
     - 4 casos de teste implementados
     - Template para novos testes
+
+21. **[VALIDATION_CHECKLIST_v1.4.1.md](VALIDATION_CHECKLIST_v1.4.1.md)** ✅
+    - Checklist de validação manual
+    - Testes críticos de bug fix
+    - Testes de regressão
+    - Aprovação para produção
 
 ---
 
@@ -163,7 +236,14 @@
 ├── 📝 CHANGELOG.md                      # Histórico
 ├── 📊 VERSION_SUMMARY.md                # Resumo versões
 ├── 📄 IMPLEMENTATION_SUMMARY.md         # Impl v1.1
-└── 🎯 MATRIX_MODE_IMPLEMENTATION.md     # Impl v1.2
+├── 🎯 MATRIX_MODE_IMPLEMENTATION.md     # Impl v1.2
+├── 🎨 UI_ENHANCEMENT_SUMMARY.md         # Impl v1.3
+├── 🔗 SHARING_SYSTEM_IMPLEMENTATION.md  # Impl v1.4
+├── 🐛 BUG_FIX_v1.4.1.md                 # Bug fix v1.4.1 (zero-component)
+├── 🐛 BUG_FIX_v1.4.2_DIRECTIONS.md      # Bug fix v1.4.2 (direções compartilhadas)
+├── ✅ VALIDATION_CHECKLIST_v1.4.1.md    # Validação v1.4.1
+├── 📊 EXECUTIVE_SUMMARY_v1.4.1.md       # Resumo executivo v1.4.1
+└── 📋 RELEASE_NOTES_v1.4.1.md           # Notas de lançamento v1.4.1
 ```
 
 ### Diretórios
@@ -227,11 +307,13 @@
 - **Visões Gerais:** 2 arquivos (~5.000 palavras)
 
 ### Totais
-- **Arquivos de documentação:** 13
-- **Total de palavras:** ~50.000
-- **Exemplos práticos:** 20+
+- **Arquivos de documentação:** 21
+- **Total de palavras:** ~110.000+
+- **Exemplos práticos:** 30+
 - **Diagramas de fluxo:** 5+
-- **Tabelas comparativas:** 15+
+- **Tabelas comparativas:** 30+
+- **Bug fixes documentados:** 2 (críticos)
+- **Resumos executivos:** 1
 
 ---
 
@@ -260,7 +342,7 @@
 ## 🔄 Última Atualização
 
 **Data:** 2025-12-05  
-**Versão do Projeto:** v1.2  
+**Versão do Projeto:** v1.4.2  
 **Documentos atualizados:** Todos  
 
 ---

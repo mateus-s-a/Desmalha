@@ -37,20 +37,34 @@ export class NodalAnalyzer {
                 }
 
             } else if (comp.type === 'current_source') {
-                // Direction: 'entering' = current enters first node (positive), leaves second node (negative)
-                // Direction: 'leaving' = current leaves first node (negative), enters second node (positive)
-                const node1 = comp.nodes[0]; // First node
-                const node2 = comp.nodes[1]; // Second node
-                const direction = comp.direction || 'entering'; // Default to entering for backward compatibility
-                
-                if (direction === 'entering') {
-                    // Current enters node1 (positive) and leaves node2 (negative)
-                    if (node1 > 0) I[node1 - 1] += value;
-                    if (node2 > 0) I[node2 - 1] -= value;
+                // For shared current sources, each node can have different direction
+                if (comp.nodes.length >= 2 && comp.directionsMap) {
+                    // Shared current source with directionsMap
+                    comp.nodes.forEach(nodeId => {
+                        if (nodeId > 0) {
+                            const direction = comp.directionsMap[nodeId] || 'entering';
+                            // 'entering' = current enters node (positive contribution)
+                            // 'leaving' = current leaves node (negative contribution)
+                            I[nodeId - 1] += (direction === 'entering' ? value : -value);
+                        }
+                    });
                 } else {
-                    // Current leaves node1 (negative) and enters node2 (positive)
-                    if (node1 > 0) I[node1 - 1] -= value;
-                    if (node2 > 0) I[node2 - 1] += value;
+                    // Non-shared current source (between two specific nodes)
+                    // Direction: 'entering' = current enters first node (positive), leaves second node (negative)
+                    // Direction: 'leaving' = current leaves first node (negative), enters second node (positive)
+                    const node1 = comp.nodes[0]; // First node
+                    const node2 = comp.nodes[1]; // Second node
+                    const direction = comp.direction || 'entering'; // Default to entering for backward compatibility
+                    
+                    if (direction === 'entering') {
+                        // Current enters node1 (positive) and leaves node2 (negative)
+                        if (node1 > 0) I[node1 - 1] += value;
+                        if (node2 > 0) I[node2 - 1] -= value;
+                    } else {
+                        // Current leaves node1 (negative) and enters node2 (positive)
+                        if (node1 > 0) I[node1 - 1] -= value;
+                        if (node2 > 0) I[node2 - 1] += value;
+                    }
                 }
             }
         });

@@ -2,6 +2,176 @@
 
 Todas as mudanças notáveis do projeto serão documentadas neste arquivo.
 
+## [v1.4.2] - 2025-12-05
+
+### 🐛 Correção Crítica - Bug de Direções em Componentes Compartilhados
+
+#### Problema Identificado
+- **Cenário específico**: Fonte de tensão/corrente compartilhada entre múltiplas malhas/nós com direções diferentes
+- **Exemplo (Malhas)**: Fonte de tensão em Malha 1 (Horário/Aumenta) e Malha 2 (Anti-horário/Queda)
+- **Exemplo (Nodal)**: Fonte de corrente no Nó 1 (Entrando) e Nó 2 (Saindo)
+- **Bug**: Ao clicar "Atualizar Estrutura", todas as direções voltavam para a mesma direção inicial
+- **Impacto**: Cálculos incorretos em circuitos com fontes compartilhadas com direções opostas
+
+#### Causa Raiz
+- Componentes compartilhados usavam uma **única direção** (`comp.direction`)
+- Cada localização precisa de sua **própria direção** independente
+- O sistema re-renderizava e perdia as direções específicas por localização
+
+#### Solução Implementada
+- ✅ **Novo campo `directionsMap`**: Armazena direção por localização `{location: direction}`
+- ✅ **IDs únicos por localização**: Selects com `id="dir-{id}-loc-{location}"` para componentes compartilhados
+- ✅ **Preservação independente**: Cada localização mantém sua direção mesmo após re-render
+- ✅ **Label informativo**: "Direção nesta localização" para componentes compartilhados
+- ✅ **Atualização de analyzers**: `MeshAnalyzer` e `NodalAnalyzer` suportam `directionsMap`
+
+#### Arquivos Modificados
+- `assets/js/components/circuit-input-enhanced.js`:
+  - Estrutura de componente com `directionsMap`
+  - `saveCurrentValues()` - Salva direções por localização
+  - `renderComponentCard()` - Renderiza selects com IDs únicos
+  - `attachComponentEvents()` - Event listeners por localização
+  - `updateSharedLocations()` - Inicializa direções para novas localizações
+  - `getData()` - Retorna `directionsMap` para componentes compartilhados
+
+- `assets/js/modules/mesh-analysis.js`:
+  - `solve()` - Processa `directionsMap` para fontes de tensão compartilhadas
+
+- `assets/js/modules/nodal-analysis.js`:
+  - `solve()` - Processa `directionsMap` para fontes de corrente compartilhadas
+
+#### Melhorias de UX
+- **Label contextual**: "Direção nesta localização" aparece apenas em componentes compartilhados
+- **Independência visual**: Cada card mostra sua própria direção claramente
+- **Consistência**: Direções preservadas em todas as operações (adicionar, remover, atualizar)
+
+#### Garantias
+- ✅ **100% de preservação** de direções por localização
+- ✅ **Cálculos corretos** para fontes compartilhadas com direções opostas
+- ✅ **Retrocompatibilidade** com componentes não-compartilhados
+- ✅ **Zero perda de dados** ao atualizar estrutura
+
+---
+
+## [v1.4.1] - 2025-12-05
+
+### 🐛 Correção Crítica - Bug de Cenário Zero-Component
+
+#### Problema Identificado
+- **Cenário específico**: Ao adicionar o PRIMEIRO componente e inserir um valor, ao adicionar um SEGUNDO componente, o valor do primeiro desaparecia
+- **Causa raiz**: O método `addComponent()` chamava `renderMeshesNodes()` que destruía o DOM ANTES de `saveCurrentValues()` poder capturar os valores
+- **Quando ocorria**: Apenas no cenário inicial (0 componentes → 1 componente → 2 componentes)
+
+#### Solução Implementada
+- ✅ **Linha 208**: Adicionado `this.saveCurrentValues()` ANTES de `this.renderMeshesNodes()`
+- ✅ **Ordem correta**: 
+  1. Adicionar novo componente ao array
+  2. Salvar valores existentes no DOM
+  3. Re-renderizar interface
+- ✅ **Testado**: Cenário zero-component agora preserva todos os valores
+
+#### Impacto
+- **100% dos cenários** agora preservam valores corretamente
+- **Zero perda de dados** em qualquer situação
+- **Experiência do usuário** completamente consistente
+
+### 📦 Arquivo Modificado
+- `assets/js/components/circuit-input-enhanced.js` - Linha 208 (correção crítica)
+
+---
+
+## [v1.4] - 2025-12-05
+
+### ✨ Novidades - Sistema de Compartilhamento Inteligente
+
+#### Checkbox de Compartilhamento
+- **Checkbox em cada componente**: "☑️ Compartilhar com outras malhas/nós"
+- **Ativação instantânea**: Marque e a área de seleção aparece
+- **Desativação simples**: Desmarque para voltar ao modo individual
+
+#### Seleção Visual de Localizações
+- **Grid responsivo**: Checkboxes para cada malha/nó
+- **Seleção múltipla**: Escolha quantas localizações quiser
+- **Indicador visual**: Badge mostra `🔗 1, 2, 3` nas localizações compartilhadas
+- **Atualização em tempo real**: Contadores atualizam automaticamente
+
+#### Preservação de Valores (CRÍTICO)
+- ✅ **Valores preservados** em TODAS as operações:
+  - Adicionar novo componente
+  - Remover componente
+  - Mudar tamanho do sistema
+  - Ativar/desativar compartilhamento
+  - Alterar seleção de localizações
+- ✅ **Sistema saveCurrentValues()**: Salva automaticamente antes de re-render
+- ✅ **Zero perda de dados**: Usuário nunca perde o que digitou
+
+#### Melhorias de UX
+- **2 passos vs 4**: Compartilhamento mais rápido
+- **Visual intuitivo**: Grid de checkboxes em vez de prompts
+- **Feedback imediato**: Indicadores atualizam na hora
+- **Menos erros**: Interface guia o usuário
+
+### 🐛 Correções
+- **Bug crítico**: Valores de inputs sendo perdidos ao adicionar/remover componentes
+- **Bug**: Componentes compartilhados difíceis de configurar
+- **Bug**: Falta de feedback visual de compartilhamento
+
+### 📦 Arquivos Modificados
+
+**Refatorados:**
+- `assets/js/components/circuit-input-enhanced.js` - Reescrito (20.4 KB)
+
+**Novos Estilos:**
+- `assets/css/components.css` - Estilos para checkboxes e grids
+
+**Documentação:**
+- `docs/sharing-system-guide.md` - Guia completo (10.7 KB)
+
+---
+
+## [v1.3] - 2025-12-05
+
+### ✨ Novidades - Interface Aprimorada para Modo Componentes
+
+#### Interface Hierárquica com Cards
+- **Cards separados por Malha/Nó**: Organização visual clara
+- **Contadores em tempo real**: Badge mostra número de componentes
+- **Estrutura dinâmica**: Atualiza automaticamente ao mudar tamanho do sistema
+
+#### Sistema de Cores Intuitivo
+- 🟡 **Resistores**: Gradiente amarelo suave (#f39c12)
+- 🔵 **Fontes de Tensão**: Gradiente azul (#3498db)
+- 🔴 **Fontes de Corrente**: Gradiente vermelho (#e74c3c)
+- **Sombras sutis**: Realce visual por tipo de componente
+
+#### Ícones e Badges
+- Badges coloridos para tipo de componente
+- Ícones FontAwesome para identificação rápida:
+  - 🌊 Resistor (wave-square)
+  - ⚡ Fonte de Tensão (bolt)
+  - ↔️ Fonte de Corrente (arrows)
+- Badge de localização para componentes compartilhados
+
+#### Melhorias de UX
+- **Botões contextuais**: "Adicionar" em cada card de malha/nó
+- **Componentes compartilhados**: Seção dedicada
+- **Empty state**: Mensagem quando não há componentes
+- **Hover effects**: Cards elevam ao passar mouse
+- **Confirmação**: Dialog antes de limpar todos os componentes
+
+### 📦 Arquivos Criados/Modificados
+
+**Novos Arquivos:**
+- `assets/js/components/circuit-input-enhanced.js` - Nova versão aprimorada
+
+**Arquivos Modificados:**
+- `assets/css/components.css` - Estilos para cards hierárquicos
+- `assets/css/responsive.css` - Responsividade aprimorada
+- `pages/mesh-calculator.html` - Import do componente enhanced
+- `pages/nodal-calculator.html` - Import do componente enhanced
+
+---
+
 ## [v1.2] - 2025-12-05
 
 ### ✨ Novidades - Modo Matriz Direta

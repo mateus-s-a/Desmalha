@@ -39,14 +39,22 @@ export class MeshAnalyzer {
             } else if (comp.type === 'voltage_source') {
                 // Voltage source logic: V = sum(IR) -> sum(V_rise) = sum(V_drop)
                 // Standard form: [R][I] = [V_sources]
-                // If current leaves positive terminal (rise), it's + on RHS? 
                 // Convention: Sum(Voltage Rises) = Sum(Voltage Drops)
-                // Usually: RI + ... = V_source
-                // If current enters negative and leaves positive, it's a rise.
-                const i = comp.meshes[0] - 1;
-                V[i] += (comp.direction === 'clockwise' ? value : -value);
                 
-                // Handle shared sources if needed (complexity increases)
+                if (comp.meshes.length > 1 && comp.directionsMap) {
+                    // Shared voltage source between multiple meshes
+                    // Each mesh can have different direction (rise or drop)
+                    comp.meshes.forEach(meshId => {
+                        const i = meshId - 1;
+                        const direction = comp.directionsMap[meshId] || 'clockwise';
+                        V[i] += (direction === 'clockwise' ? value : -value);
+                    });
+                } else {
+                    // Non-shared voltage source (single mesh)
+                    const i = comp.meshes[0] - 1;
+                    const direction = comp.direction || 'clockwise';
+                    V[i] += (direction === 'clockwise' ? value : -value);
+                }
             }
         });
 

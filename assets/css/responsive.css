@@ -18,4 +18,33 @@
         width: 100%;
         margin-bottom: 10px;
     }
+
+    /* Enhanced circuit input responsive */
+    .mesh-node-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .mesh-node-header > div {
+        width: 100%;
+    }
+
+    .add-component-btn {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .component-item-enhanced > div {
+        flex-direction: column;
+    }
+
+    .buttons-row {
+        flex-direction: column;
+    }
+
+    .buttons-row .btn {
+        width: 100% !important;
+        margin: 5px 0 !important;
+    }
 }

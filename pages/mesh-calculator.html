@@ -55,7 +55,7 @@
     </footer>
 
     <script type="module">
-        import { CircuitInput } from '../assets/js/components/circuit-input.js';
+        import { CircuitInputEnhanced } from '../assets/js/components/circuit-input-enhanced.js';
         import { MatrixInput } from '../assets/js/components/matrix-input.js';
         import { ModeToggle } from '../assets/js/components/mode-toggle.js';
         import { ResultsDisplay } from '../assets/js/components/results-display.js';
@@ -83,7 +83,7 @@
             
             if (mode === 'components') {
                 // Component input mode
-                currentInput = new CircuitInput('input-container', 'mesh');
+                currentInput = new CircuitInputEnhanced('input-container', 'mesh');
                 currentInput.render();
                 
                 instructionsContainer.innerHTML = `
