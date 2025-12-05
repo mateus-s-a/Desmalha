@@ -61,30 +61,101 @@
         import { ResultsDisplay } from '../assets/js/components/results-display.js';
         import { MeshAnalyzer } from '../assets/js/modules/mesh-analysis.js';
         import { MatrixSolver } from '../assets/js/modules/matrix-operations.js';
+        import { StateManager } from '../assets/js/utils/state-manager.js';
 
         const display = new ResultsDisplay('results-container');
         const analyzer = new MeshAnalyzer();
+        const STATE_KEY = 'desmalha_mesh_state_v1';
 
         let currentInput = null;
         let currentMode = 'components';
+        
+        // In-memory cache for switching modes without losing data
+        let cachedComponentData = null;
+        let cachedMatrixData = null;
 
         // Initialize Mode Toggle
-        const modeToggle = new ModeToggle('mode-toggle-container', (mode) => {
-            currentMode = mode;
-            switchMode(mode);
+        const modeToggle = new ModeToggle('mode-toggle-container', (newMode) => {
+            // Switch logic handles saving current state to cache
+            switchMode(newMode);
         });
         modeToggle.render();
 
-        // Initialize with components mode
+        // Initialize with components mode default
         switchMode('components');
 
-        function switchMode(mode) {
+        // --- State Management ---
+        function loadSavedState() {
+            const savedState = StateManager.loadState(STATE_KEY);
+            if (savedState) {
+                // 1. Load Cached Data into memory
+                if (savedState.componentsData) cachedComponentData = savedState.componentsData;
+                if (savedState.matrixData) cachedMatrixData = savedState.matrixData;
+
+                // 2. Restore Active Mode
+                if (savedState.mode && savedState.mode !== 'components') {
+                    // This will trigger the callback, which calls switchMode
+                    // switchMode will pick up the data from cachedMatrixData
+                    modeToggle.setMode(savedState.mode); 
+                } else {
+                    // Already in components mode (default), just hydrate if needed
+                    if (cachedComponentData && currentInput) {
+                        currentInput.deserialize(cachedComponentData);
+                    }
+                }
+            }
+        }
+
+        function saveCurrentState() {
+            // Update cache from current input before saving
+            if (currentInput) {
+                if (currentMode === 'components') {
+                    cachedComponentData = currentInput.serialize();
+                } else {
+                    cachedMatrixData = currentInput.serialize();
+                }
+            }
+
+            const state = {
+                mode: currentMode,
+                componentsData: cachedComponentData,
+                matrixData: cachedMatrixData
+            };
+            StateManager.saveState(STATE_KEY, state);
+        }
+
+        // Load on startup
+        loadSavedState();
+
+        // Save on navigation/unload
+        window.addEventListener('beforeunload', saveCurrentState);
+        
+        function switchMode(newMode) {
             const instructionsContainer = document.getElementById('instructions-container');
             
-            if (mode === 'components') {
+            // 1. Save current state to cache before switching
+            if (currentInput) {
+                if (currentMode === 'components') {
+                    cachedComponentData = currentInput.serialize();
+                } else {
+                    cachedMatrixData = currentInput.serialize();
+                }
+            }
+
+            // Update active mode tracker
+            currentMode = newMode;
+            
+            if (newMode === 'components') {
                 // Component input mode
                 currentInput = new CircuitInputEnhanced('input-container', 'mesh');
                 currentInput.render();
+                
+                // Restore from cache if available
+                if (cachedComponentData) {
+                    try {
+                        currentInput.deserialize(cachedComponentData);
+                    } catch(e) { console.error("Error restoring component data", e); }
+                }
                 
                 instructionsContainer.innerHTML = `
                     <p class="mb-4">
@@ -94,13 +165,20 @@
                     </p>
                 `;
 
-                // Attach solve event
-                document.getElementById('solve-btn').addEventListener('click', solveFromComponents);
+                const solveBtn = document.getElementById('solve-btn');
+                if(solveBtn) solveBtn.addEventListener('click', solveFromComponents);
 
             } else {
                 // Matrix input mode
                 currentInput = new MatrixInput('input-container', 'mesh');
                 currentInput.render();
+
+                // Restore from cache if available
+                if (cachedMatrixData) {
+                    try {
+                        currentInput.deserialize(cachedMatrixData);
+                    } catch(e) { console.error("Error restoring matrix data", e); }
+                }
                 
                 instructionsContainer.innerHTML = `
                     <p class="mb-4">
@@ -110,13 +188,14 @@
                     </p>
                 `;
 
-                // Attach solve event
-                document.getElementById('solve-matrix-btn').addEventListener('click', solveFromMatrix);
+                const solveBtn = document.getElementById('solve-matrix-btn');
+                if(solveBtn) solveBtn.addEventListener('click', solveFromMatrix);
             }
         }
 
         function solveFromComponents() {
             try {
+                saveCurrentState(); // Auto-save on solve
                 const data = currentInput.getData();
                 const results = analyzer.solve(data.size, data.components);
                 display.showResults(results, 'mesh');
@@ -128,6 +207,7 @@
 
         function solveFromMatrix() {
             try {
+                saveCurrentState(); // Auto-save on solve
                 const { matrix, vector, size } = currentInput.getData();
                 
                 // Solve directly using MatrixSolver

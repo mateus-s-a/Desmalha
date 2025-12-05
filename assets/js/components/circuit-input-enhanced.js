@@ -620,4 +620,46 @@ export class CircuitInputEnhanced {
         
         return { size, components };
     }
+
+    /**
+     * Serializa o estado atual para salvamento
+     */
+    serialize() {
+        // Garante que temos os valores mais recentes do DOM
+        this.saveCurrentValues();
+        
+        return {
+            systemSize: this.systemSize,
+            components: this.components,
+            componentCounter: this.componentCounter
+        };
+    }
+
+    /**
+     * Restaura o estado a partir de dados salvos
+     * @param {object} data - Dados recuperados do StateManager
+     */
+    deserialize(data) {
+        if (!data || !data.systemSize) return;
+
+        this.systemSize = data.systemSize;
+        this.components = data.components || [];
+        this.componentCounter = data.componentCounter || 0;
+
+        // Atualiza o input de tamanho do sistema na UI
+        const sizeInput = document.getElementById('system-size');
+        if (sizeInput) {
+            sizeInput.value = this.systemSize;
+        }
+
+        // Reconstrói a interface
+        this.renderMeshesNodes();
+        
+        // Não precisamos chamar renderAllComponents aqui pois renderMeshesNodes
+        // já chama renderAllComponents internamente no final?
+        // Verificando: renderMeshesNodes apenas cria os containers.
+        // Quem chama renderAllComponents normalmente é quem usa a classe, ou eventos.
+        // Vamos forçar a renderização dos componentes.
+        this.renderAllComponents();
+    }
 }

@@ -19,6 +19,7 @@ Bem-vindo ao **Desmalha**, uma ferramenta web estática para análise de circuit
 - **✅ Preservação de Valores (v1.4.1)**: 100% de preservação de dados em TODOS os cenários, incluindo o cenário inicial (zero-component).
 - **✅ Direções Independentes (v1.4.2)**: Componentes compartilhados suportam direções diferentes em cada localização.
 - **✅ Suporte a Terra/GND (v1.4.3)**: Sistema de compartilhamento agora permite selecionar explicitamente o Terra (GND) na Análise Nodal.
+- **✅ Persistência de Dados (v1.5)**: Seus dados são salvos automaticamente! Navegue entre páginas ou recarregue a aba sem perder seu circuito ou matriz.
 
 ## 📂 Estrutura de Diretórios
 

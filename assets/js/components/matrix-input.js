@@ -123,4 +123,21 @@ export class MatrixInput {
 
         return { matrix, vector, size };
     }
+
+    serialize() {
+        const textarea = document.getElementById('matrix-text-input');
+        return {
+            text: textarea ? textarea.value : ''
+        };
+    }
+
+    deserialize(data) {
+        if (!data || !data.text) return;
+        
+        const textarea = document.getElementById('matrix-text-input');
+        if (textarea) {
+            textarea.value = data.text;
+            this.updatePreview();
+        }
+    }
 }

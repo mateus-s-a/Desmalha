@@ -2,7 +2,27 @@
 
 Todas as mudanças notáveis do projeto serão documentadas neste arquivo.
 
-## [v1.4.3] - 2025-12-05
+## [v1.5]
+
+### ✨ Novidades - Persistência de Dados
+
+#### Salvamento Automático de Estado
+- **Navegação sem perdas**: Dados inseridos são mantidos ao navegar entre páginas (Home, Teoria, Calculadoras) ou recarregar a aba.
+- **Persistência Dupla**: Mantém o estado do "Modo Componentes" e "Modo Matriz" simultaneamente. O usuário pode alternar entre os modos sem perder o que digitou em nenhum deles.
+- **Isolamento**: Dados da Análise de Malhas não interferem na Análise Nodal.
+- **Tecnologia**: Utiliza `localStorage` para manter os dados no navegador do usuário.
+
+#### Arquitetura
+- **Novo Módulo**: `assets/js/utils/state-manager.js` para gerenciamento centralizado.
+- **Serialização**: Componentes `CircuitInputEnhanced` e `MatrixInput` agora possuem métodos `serialize()` e `deserialize()`.
+- **Ciclo de Vida**: Integração com eventos `beforeunload` (sair da página) e `load` (entrar na página).
+
+### 🐛 Correções
+- **UX**: Resolvido problema onde usuários perdiam todo o trabalho ao navegar acidentalmente para outra página.
+
+---
+
+## [v1.4.3]
 
 ### 🐛 Correção de Bug - Seleção de Terra (GND) na Análise Nodal
 
@@ -28,7 +48,7 @@ Todas as mudanças notáveis do projeto serão documentadas neste arquivo.
 
 ---
 
-## [v1.4.2] - 2025-12-05
+## [v1.4.2]
 
 ### 🐛 Correção Crítica - Bug de Direções em Componentes Compartilhados
 
@@ -79,7 +99,7 @@ Todas as mudanças notáveis do projeto serão documentadas neste arquivo.
 
 ---
 
-## [v1.4.1] - 2025-12-05
+## [v1.4.1]
 
 ### 🐛 Correção Crítica - Bug de Cenário Zero-Component
 
@@ -106,7 +126,7 @@ Todas as mudanças notáveis do projeto serão documentadas neste arquivo.
 
 ---
 
-## [v1.4] - 2025-12-05
+## [v1.4]
 
 ### ✨ Novidades - Sistema de Compartilhamento Inteligente
 
@@ -155,7 +175,7 @@ Todas as mudanças notáveis do projeto serão documentadas neste arquivo.
 
 ---
 
-## [v1.3] - 2025-12-05
+## [v1.3]
 
 ### ✨ Novidades - Interface Aprimorada para Modo Componentes
 
@@ -198,7 +218,7 @@ Todas as mudanças notáveis do projeto serão documentadas neste arquivo.
 
 ---
 
-## [v1.2] - 2025-12-05
+## [v1.2]
 
 ### ✨ Novidades - Modo Matriz Direta
 
@@ -246,7 +266,7 @@ Todas as mudanças notáveis do projeto serão documentadas neste arquivo.
 
 ---
 
-## [v1.1] - 2025-12-05
+## [v1.1]
 
 ### ✨ Novidades
 
@@ -327,7 +347,7 @@ Todas as mudanças notáveis do projeto serão documentadas neste arquivo.
 
 ---
 
-## [v1.0] - 2025-12-05
+## [v1.0]
 
 ### 🎉 Lançamento Inicial
 
