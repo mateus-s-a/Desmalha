@@ -2,6 +2,32 @@
 
 Todas as mudanças notáveis do projeto serão documentadas neste arquivo.
 
+## [v1.4.3] - 2025-12-05
+
+### 🐛 Correção de Bug - Seleção de Terra (GND) na Análise Nodal
+
+#### Problema Identificado
+- **Cenário**: Análise Nodal, modo "Componentes"
+- **Bug**: Ao ativar "Compartilhar com outros nós", a lista de seleção não incluía o Terra (Nó 0)
+- **Impacto**: Impossível conectar explicitamente componentes entre um Nó X e o Terra usando o sistema de compartilhamento
+- **Frequência**: 100% dos casos onde se tentava usar compartilhamento envolvendo o terra
+
+#### Solução Implementada
+- ✅ **Inclusão do Terra**: Checkbox "Terra (GND)" adicionado ao grid de seleção na Análise Nodal
+- ✅ **Lógica Adaptativa**: Grid mostra 0..N para Nodal e 1..N para Malhas
+- ✅ **Display Amigável**: Indicador de compartilhamento mostra "GND" em vez de "0"
+- ✅ **Processamento**: Lógica de salvamento e atualização ajustada para processar nó 0
+
+#### Arquivos Modificados
+- `assets/js/components/circuit-input-enhanced.js`:
+  - `renderComponentCard()`: Gera checkbox para loc 0 se não for malha
+  - `saveCurrentValues()`: Lê checkbox loc 0
+  - `updateSharedLocations()`: Lê checkbox loc 0
+  - `attachComponentEvents()`: Adiciona listener para checkbox loc 0
+  - `sharedIndicator`: Formata "0" como "GND"
+
+---
+
 ## [v1.4.2] - 2025-12-05
 
 ### 🐛 Correção Crítica - Bug de Direções em Componentes Compartilhados

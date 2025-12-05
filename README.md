@@ -17,7 +17,8 @@ Bem-vindo ao **Desmalha**, uma ferramenta web estática para análise de circuit
 - **Design Responsivo**: Interface moderna adaptada para computadores e dispositivos móveis.
 - **Arquitetura Escalável**: Estrutura modular pronta para adicionar novos botões e funcionalidades.
 - **✅ Preservação de Valores (v1.4.1)**: 100% de preservação de dados em TODOS os cenários, incluindo o cenário inicial (zero-component).
-- **✅ Direções Independentes (v1.4.2)**: Componentes compartilhados suportam direções diferentes em cada localização (ex: fonte de tensão aumenta em uma malha e cai em outra).
+- **✅ Direções Independentes (v1.4.2)**: Componentes compartilhados suportam direções diferentes em cada localização.
+- **✅ Suporte a Terra/GND (v1.4.3)**: Sistema de compartilhamento agora permite selecionar explicitamente o Terra (GND) na Análise Nodal.
 
 ## 📂 Estrutura de Diretórios
 

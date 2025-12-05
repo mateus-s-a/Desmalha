@@ -123,6 +123,15 @@ export class CircuitInputEnhanced {
                 // Save selected locations
                 if (comp.isShared) {
                     const selectedLocations = [];
+                    
+                    // Check Ground (Node 0) for Nodal Analysis
+                    if (this.type !== 'mesh') {
+                        const gndCheckbox = document.getElementById(`loc-${comp.id}-0`);
+                        if (gndCheckbox && gndCheckbox.checked) {
+                            selectedLocations.push(0);
+                        }
+                    }
+                    
                     for (let i = 1; i <= this.systemSize; i++) {
                         const checkbox = document.getElementById(`loc-${comp.id}-${i}`);
                         if (checkbox && checkbox.checked) {
@@ -305,7 +314,10 @@ export class CircuitInputEnhanced {
 
         // Location checkboxes (if shared)
         if (component.isShared) {
-            for (let i = 1; i <= this.systemSize; i++) {
+            // Determine range: 1..N for mesh, 0..N for nodal
+            const startLoc = this.type === 'mesh' ? 1 : 0;
+            
+            for (let i = startLoc; i <= this.systemSize; i++) {
                 const locCheckbox = document.getElementById(`loc-${component.id}-${i}`);
                 if (locCheckbox) {
                     locCheckbox.onchange = () => this.updateSharedLocations(component.id);
@@ -342,6 +354,15 @@ export class CircuitInputEnhanced {
         this.saveCurrentValues();
 
         const selectedLocations = [];
+        
+        // Check Ground (Node 0) for Nodal Analysis
+        if (this.type !== 'mesh') {
+            const gndCheckbox = document.getElementById(`loc-${component.id}-0`);
+            if (gndCheckbox && gndCheckbox.checked) {
+                selectedLocations.push(0);
+            }
+        }
+
         for (let i = 1; i <= this.systemSize; i++) {
             const checkbox = document.getElementById(`loc-${component.id}-${i}`);
             if (checkbox && checkbox.checked) {
@@ -404,7 +425,7 @@ export class CircuitInputEnhanced {
         const sharedIndicator = component.isShared ? 
             `<span style="margin-left: 10px; color: #666;">
                 <i class="fa-solid fa-link"></i> 
-                ${component.sharedLocations.join(', ')}
+                ${component.sharedLocations.map(loc => loc === 0 ? 'GND' : loc).join(', ')}
             </span>` : '';
         
         return `
@@ -478,7 +499,11 @@ export class CircuitInputEnhanced {
                                 Selecione ${this.type === 'mesh' ? 'as malhas' : 'os nós'}:
                             </small>
                             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px;">
-                                ${Array.from({length: this.systemSize}, (_, i) => i + 1).map(loc => `
+                                ${
+                                    (this.type === 'mesh' 
+                                        ? Array.from({length: this.systemSize}, (_, i) => i + 1) 
+                                        : [0, ...Array.from({length: this.systemSize}, (_, i) => i + 1)]
+                                    ).map(loc => `
                                     <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.85em;">
                                         <input 
                                             type="checkbox" 
@@ -486,7 +511,7 @@ export class CircuitInputEnhanced {
                                             ${component.sharedLocations.includes(loc) ? 'checked' : ''}
                                             style="cursor: pointer;"
                                         >
-                                        <span>${this.type === 'mesh' ? 'Malha' : 'Nó'} ${loc}</span>
+                                        <span>${loc === 0 ? 'Terra (GND)' : (this.type === 'mesh' ? 'Malha' : 'Nó') + ' ' + loc}</span>
                                     </label>
                                 `).join('')}
                             </div>

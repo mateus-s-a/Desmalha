@@ -166,14 +166,13 @@
 
 16. **[BUG_FIX_v1.4.2_DIRECTIONS.md](BUG_FIX_v1.4.2_DIRECTIONS.md)** 🐛⚡
     - Bug crítico de direções em componentes compartilhados
-    - Análise técnica profunda (causa raiz)
-    - Sistema directionsMap implementado
-    - Suporte a direções independentes por localização
-    - Atualização de analyzers (mesh e nodal)
-    - 5 testes de validação
-    - Garantia de cálculos 100% corretos
+    - Análise técnica profunda
 
-17. **[VALIDATION_CHECKLIST_v1.4.1.md](VALIDATION_CHECKLIST_v1.4.1.md)** ✅
+17. **[BUG_FIX_v1.4.3_GND.md](BUG_FIX_v1.4.3_GND.md)** 🐛
+    - Correção da seleção de Terra (GND) na Análise Nodal
+    - Inclusão do nó 0 no grid de compartilhamento
+
+18. **[VALIDATION_CHECKLIST_v1.4.1.md](VALIDATION_CHECKLIST_v1.4.1.md)** ✅
     - Checklist completo de validação
     - 10 testes de regressão
     - Critérios de aprovação
@@ -342,7 +341,7 @@
 ## 🔄 Última Atualização
 
 **Data:** 2025-12-05  
-**Versão do Projeto:** v1.4.2  
+**Versão do Projeto:** v1.4.3  
 **Documentos atualizados:** Todos  
 
 ---
