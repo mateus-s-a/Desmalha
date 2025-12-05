@@ -9,7 +9,6 @@
 ## 📦 Evolução do Projeto
 
 ### v1.0 - Lançamento Inicial
-**Data:** 2025-12-05  
 **Foco:** Base funcional
 
 #### Funcionalidades
@@ -27,7 +26,6 @@
 ---
 
 ### v1.1 - Escalabilidade e UX
-**Data:** 2025-12-05  
 **Foco:** Arquitetura escalável e melhorias de usabilidade
 
 #### Novas Funcionalidades
@@ -63,7 +61,6 @@
 ---
 
 ### v1.3 - Interface Aprimorada 🆕
-**Data:** 2025-12-05  
 **Foco:** UX intuitiva com cores e hierarquia
 
 #### Novas Funcionalidades
@@ -119,7 +116,6 @@ pages/nodal-calculator.html
 ---
 
 ### v1.2 - Modo Matriz Direta
-**Data:** 2025-12-05  
 **Foco:** Flexibilidade de entrada de dados
 
 #### Novas Funcionalidades
@@ -388,56 +384,5 @@ Desmalha/
 - Convenções claras facilitam colaboração
 
 ---
-
-## 🎓 Para Desenvolvedores
-
-### Adicionar Novo Modo de Entrada (5 passos)
-
-1. **Criar componente** em `components/`
-2. **Implementar método `render()`** e `getData()`
-3. **Adicionar opção no Toggle**
-4. **Criar função `switchMode()` para novo modo**
-5. **Documentar** no manual do usuário
-
-**Tempo estimado:** 30-60 minutos
-
-### Adicionar Nova Validação (3 passos)
-
-1. **Editar** `matrix-parser.js` ou `circuit-validator.js`
-2. **Adicionar lógica** no método `validate()`
-3. **Testar** com casos extremos
-
-**Tempo estimado:** 15-30 minutos
-
----
-
-## 📞 Recursos
-
-- **GitHub:** (em breve)
-- **Documentação:** `docs/`
-- **Exemplos:** `docs/matrix-mode-examples.md`
-- **Suporte:** README.md
-
----
-
-## ✨ Status Atual
-
-**Versão:** v1.2  
-**Status:** ✅ Produção  
-**Estabilidade:** 🟢 Alta  
-**Documentação:** 🟢 Completa  
-**Testes:** 🟡 Básicos (expandir)  
-**Performance:** 🟢 Excelente  
-
-**Pronto para:**
-- ✅ Deploy em produção
-- ✅ Uso educacional
-- ✅ Expansão futura
-- ✅ Contribuições da comunidade
-
----
-
-**Última atualização:** 2025-12-05  
-**Desenvolvido com ❤️ pela equipe Desmalha**
 
 &copy; 2025 Desmalha Project - Todos os direitos reservados (MIT License)
