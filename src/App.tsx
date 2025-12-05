@@ -46,10 +46,8 @@ export default function App() {
               </table>
             </section>
           </div>
-        </div>
-      </main>
 
-      <Footer />
+      <Footer /
     </div>
   )
 }
