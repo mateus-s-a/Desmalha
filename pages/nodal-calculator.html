@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Nodal - Desmalha</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="../index.html" class="nav-brand">
+                <i class="fa-solid fa-bolt"></i> Desmalha
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Início</a></li>
+                <li><a href="mesh-calculator.html" class="nav-link">Análise de Malhas</a></li>
+                <li><a href="nodal-calculator.html" class="nav-link active">Análise Nodal</a></li>
+                <li><a href="theory.html" class="nav-link">Teoria</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2><i class="fa-solid fa-circle-nodes"></i> Calculadora de Análise Nodal</h2>
+        <p class="mb-4">Defina o número de nós (excluindo o terra) e adicione componentes. Conecte resistores ou fontes de corrente entre nós (use 0 para Terra).</p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="card" id="input-container">
+                <!-- Input Component Rendered Here -->
+            </div>
+            <div id="results-container">
+                <div class="card bg-white">
+                    <p style="color: #666; text-align: center;">Adicione componentes e clique em Calcular para ver os resultados.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Desmalha Project.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { CircuitInput } from '../assets/js/components/circuit-input.js';
+        import { ResultsDisplay } from '../assets/js/components/results-display.js';
+        import { NodalAnalyzer } from '../assets/js/modules/nodal-analysis.js';
+
+        const input = new CircuitInput('input-container', 'nodal');
+        const display = new ResultsDisplay('results-container');
+        const analyzer = new NodalAnalyzer();
+
+        input.render();
+
+        document.getElementById('solve-btn').addEventListener('click', () => {
+            try {
+                const data = input.getData();
+                const results = analyzer.solve(data.size, data.components);
+                display.showResults(results, 'nodal');
+            } catch (error) {
+                display.showError(error.message || 'Erro ao calcular. Verifique os dados de entrada.');
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>

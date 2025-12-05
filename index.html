@@ -1,13 +1,68 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>desmalha</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desmalha - Calculadora de Circuitos</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="index.html" class="nav-brand">
+                <i class="fa-solid fa-bolt"></i> Desmalha
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active">Início</a></li>
+                <li><a href="pages/mesh-calculator.html" class="nav-link">Análise de Malhas</a></li>
+                <li><a href="pages/nodal-calculator.html" class="nav-link">Análise Nodal</a></li>
+                <li><a href="pages/theory.html" class="nav-link">Teoria</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section style="text-align: center; padding: 4rem 0;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Resolva Circuitos Elétricos em Segundos</h1>
+            <p style="font-size: 1.2rem; color: #666; margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Ferramenta completa para análise de circuitos DC utilizando os métodos de Análise de Malhas e Análise Nodal.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <a href="pages/mesh-calculator.html" class="btn btn-primary">
+                    <i class="fa-solid fa-border-all"></i> Calculadora de Malhas
+                </a>
+                <a href="pages/nodal-calculator.html" class="btn btn-accent">
+                    <i class="fa-solid fa-circle-nodes"></i> Calculadora Nodal
+                </a>
+            </div>
+        </section>
+
+        <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 2rem;">
+            <div class="card">
+                <h3><i class="fa-solid fa-pen-ruler"></i> Método das Malhas</h3>
+                <p>Baseado na Lei das Tensões de Kirchhoff (LTK). Ideal para circuitos planares onde você define correntes de malha imaginárias.</p>
+            </div>
+            <div class="card">
+                <h3><i class="fa-solid fa-share-nodes"></i> Método Nodal</h3>
+                <p>Baseado na Lei das Correntes de Kirchhoff (LCK). Foca em encontrar as tensões nos nós do circuito.</p>
+            </div>
+            <div class="card">
+                <h3><i class="fa-solid fa-graduation-cap"></i> Educacional</h3>
+                <p>Visualize as matrizes geradas e o passo a passo da solução para entender a teoria por trás dos cálculos.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Desmalha Project. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="assets/js/app.js"></script>
+</body>
 </html>

@@ -1,174 +1,114 @@
-# Desmalha - Calculadora de Análise de Malhas
+# Desmalha - Calculadora de Circuitos Elétricos
 
-> Sistema web frontend para resolução automatizada de circuitos elétricos utilizando o método de Análise de Malhas. O projeto visa facilitar a resolução de circuitos planares através da aplicação sistemática das Leis de Kirchhoff (LKC) e Lei de Ohm, gerando sistemas de equações lineares e resolvendo-os matricialmente.
+Bem-vindo ao **Desmalha**, uma ferramenta web estática para análise de circuitos elétricos DC utilizando os métodos de **Análise de Malhas** e **Análise Nodal**.
 
-## Visão Geral do Projeto
+## 🚀 Funcionalidades
 
-A **Desmalha** é uma aplicação web educacional e prática que permite aos usuários:
+- **Análise de Malhas**: Cálculo de correntes de malha em circuitos planares com suporte a direção de fontes de tensão.
+- **Análise Nodal**: Cálculo de tensões nodais com suporte a direção de fontes de corrente (entrando/saindo).
+- **Interface Intuitiva**: Entrada de dados simplificada para componentes (Resistores, Fontes de Tensão e Corrente).
+- **Controles de Direção**: Configure a polaridade/direção das fontes para análise precisa.
+- **Botão "Limpar Tudo"**: Remove rapidamente todos os componentes inseridos.
+- **Visualização de Matrizes**: Exibe a matriz do sistema linear gerado para fins educacionais.
+- **Design Responsivo**: Interface moderna adaptada para computadores e dispositivos móveis.
+- **Arquitetura Escalável**: Estrutura modular pronta para adicionar novos botões e funcionalidades.
 
-- Inserir dados de circuitos elétricos (resistências, fontes de tensão/corrente, número de malhas)
-- Calcular automaticamente as correntes de malha usando o método sistemático
-- Visualizar resultados formatados com unidades adequadas
-- Compreender o processo de resolução através de interface intuitiva
+## 📂 Estrutura de Diretórios
 
-## Objetivos
+O projeto segue estritamente a estrutura organizada definida em `estrutura de diretórios.md`:
 
-- **Educacional**: Demonstrar o método de Análise de Malhas de forma interativa
-- **Prático**: Facilitar cálculos rápidos e precisos de circuitos planares
-- **Acessível**: Interface limpa e responsiva para uso em diferentes dispositivos
-- **Moderno**: Aplicação das melhores práticas de desenvolvimento web 2025
-
-## Tecnologias Utilizadas
-
-| Área | Tecnologia | Versão | Justificativa |
-|------|------------|--------|---------------|
-| **Frontend** | React + TypeScript | `18.x` / `TS 5.9` | Componentização, tipagem forte e código escalável |
-| **Build Tool** | Vite | `7.2.2` | Build extremamente rápido e HMR otimizado |
-| **Estilo/UI** | TailwindCSS | `4.0` | Design responsivo ágil com CSS-first approach |
-| **Estado** | Zustand ou Context API | `Latest` | Gerenciamento de estado simples e performático |
-| **Matemática** | math.js | `Latest` | Resolução de sistemas lineares e operações matriciais |
-| **Controle de Versão** | Git + GitHub | - | Colaboração e versionamento confiável |
-| **Testes** | Vitest | `Latest` | Testes unitários rápidos compatíveis com Vite |
-| **Hospedagem** | GitHub Pages | - | Deploy simples e gratuito |
-
-<br>
-
-## Estrutura do Projeto
-
-```text
+```
 Desmalha/
-│
-├── public/
-│ ├── index.html
-│ └── favicon.ico
-│
-├── src/
-│ ├── assets/
-│ │ └── logo.svg
-│ │
-│ ├── components/
-│ │ ├── Navbar.tsx
-│ │ ├── FormularioEntradaCircuito.tsx
-│ │ ├── TabelaResultadosMalha.tsx
-│ │ └── Rodape.tsx
-│ │
-│ ├── logic/
-│ │ └── analiseMalha.ts
-│ │
-│ ├── pages/
-│ │ └── Inicio.tsx
-│ │
-│ ├── styles/
-│ │ └── globals.css
-│ │
-│ ├── tests/
-│ │ └── analiseMalha.test.ts
-│ │
-│ ├── App.tsx
-│ ├── main.tsx
-│ └── vite-env.d.ts
-│
-├── .gitignore
-├── package.json
-├── tailwind.config.js
-├── tsconfig.json
-├── vite.config.ts
-└── README.md
+├── index.html              # Página Inicial
+├── assets/                 # Recursos estáticos
+│   ├── css/                # Estilos (Paleta: #1d7ad0, #91ade2, #e0f1ff)
+│   ├── js/                 # Lógica da aplicação (Modules, Components, Utils)
+│   ├── img/                # Imagens
+│   └── libs/               # Bibliotecas (Bootstrap/Math.js via CDN em produção)
+├── pages/                  # Páginas funcionais (Calculadoras, Teoria)
+├── templates/              # Modelos HTML
+├── data/                   # Dados JSON
+├── docs/                   # Documentação
+└── tests/                  # Testes
 ```
 
+## 🛠️ Tecnologias Utilizadas
 
-## Começando
+- **HTML5 & CSS3**: Estrutura semântica e estilização moderna.
+- **JavaScript (ES6+)**: Lógica modular sem frameworks pesados.
+- **FontAwesome**: Ícones vetoriais.
+- **Math.js / Algoritmo Próprio**: Resolução de sistemas lineares via Eliminação Gaussiana implementada nativamente em `matrix-operations.js`.
 
-### Pré-requisitos
+## 🎨 Paleta de Cores
 
-- Node.js >= 18.x
-- npm ou yarn
-- Git
+- **Primária**: `#1d7ad0` (Azul Desmalha)
+- **Secundária**: `#91ade2` (Azul Suave)
+- **Fundo**: `#e0f1ff` (Azul Pálido)
+- **Destaque**: `#daa21b` (Dourado/Aviso)
 
-<br>
+## 📖 Como Usar
 
-### Instalação
+1. Abra o arquivo `index.html` em seu navegador.
+2. Navegue até a calculadora desejada (Malhas ou Nodal).
+3. Defina o tamanho do sistema (número de malhas ou nós).
+4. Adicione os componentes, especificando seus valores e conexões:
+   - Para **Malhas**: 
+     - Indique quais malhas o componente toca (ex: `1` para malha 1, ou `1,2` para compartilhado).
+     - Para fontes de tensão, escolha a direção (horário/anti-horário) na malha principal.
+   - Para **Nós**: 
+     - Indique os nós de conexão (ex: `0,1` conecta terra ao nó 1, ou `1,2` entre nós).
+     - Para fontes de corrente, escolha se a corrente está **entrando** (positiva) ou **saindo** (negativa) do primeiro nó.
+5. Use o botão **"Limpar Tudo"** para resetar todos os componentes inseridos.
+6. Clique em **Calcular** para ver as correntes ou tensões resultantes.
 
-#### 1. Clonar o repositório
+## ⚠️ Notas de Desenvolvimento
 
-```bash
-$ git clone https://github.com/mateus-s-a/Desmalha.git
-$ cd Desmalha
-````
+- O projeto foi desenvolvido como um site estático (Frontend-only).
+- Bibliotecas externas grandes foram referenciadas via CDN para otimização.
+- A lógica de resolução matemática é executada inteiramente no navegador do cliente.
 
-#### 2. Criar projeto com Vite
+## 📋 Funcionalidades Implementadas (v1.1)
 
-```bash
-$ npm create vite@latest . -- --template react-ts
-```
+### ✅ Core Features
+- [x] Análise de Malhas funcional
+- [x] Análise Nodal funcional
+- [x] Resolução de sistemas lineares (Eliminação Gaussiana)
+- [x] Interface responsiva e moderna
 
-#### 3. Instalar dependências
+### ✅ Controles de Direção
+- [x] Fontes de Tensão: Direção horária/anti-horária (Malhas)
+- [x] Fontes de Corrente: Entrando/Saindo do nó (Nodal)
 
-```bash
-$ npm install
-```
+### ✅ Usabilidade
+- [x] Botão "Limpar Tudo" para reset rápido
+- [x] Botões de remoção individual por componente
+- [x] Visualização educacional de matrizes
 
-<br>
+### ✅ Arquitetura Escalável
+- [x] Sistema modular com ES6 Modules
+- [x] Tipagem robusta com `data-type` attributes
+- [x] Estrutura preparada para novos botões e funcionalidades
+- [x] Documentação técnica completa
 
-### Executar Localmente
+### ✅ Documentação
+- [x] README.md com guia de uso
+- [x] Manual do Usuário detalhado
+- [x] Documentação Técnica com padrões de código
+- [x] Exemplos de testes unitários
 
-Modo **desenvolvimento**
+## 📚 Documentação Adicional
 
-```bash
-$ npm run dev
-```
+- [Manual do Usuário](docs/user-manual.md) - Guia completo com exemplos práticos
+- [Documentação Técnica](docs/technical-docs.md) - Arquitetura e padrões de desenvolvimento
+- [Página de Teoria](pages/theory.html) - Fundamentos teóricos de circuitos
 
-Executar **testes**:
+## 🔮 Próximos Passos Sugeridos
 
-```bash
-$ npm run test
-```
-
-Build para **produção**:
-
-```bash
-$ npm run build
-```
-
-Preview da **build**:
-
-```bash
-$ npm run preview
-```
+1. Implementar sistema de salvamento de circuitos (localStorage)
+2. Adicionar editor gráfico de circuitos (drag-and-drop)
+3. Exportar resultados para PDF
+4. Adicionar mais exemplos práticos
+5. Implementar testes automatizados (Jest)
 
 ---
-
-## Fundamentos Teóricos
-
-### Análise de Malhas
-
-A Análise de Malhas é um método sistemático para análise de circuitos elétricos que se baseia na **Lei de Kirchhoff das Tensões (LKT)**:
-
-> A soma algébrica das tensões em qualquer malha fechada é igual a zero.
-
-**Passos do Método:**
-
-1. Identificar malhas independentes no circuito
-2. Atribuir corrente de malha para cada malha (sentido horário)
-3. Aplicar **LKT** em cada malha
-4. Resolver o sistema de equações lineares resultante
-5. Obter as correntes de malha
-
-**Equação Geral:**
-
-Para um circuito com $ n $ malhas:
-
-$$R \cdot I = V$$
-
-Onde:
-- $R$ = matriz de resistências
-- $I$ = vetor de correntes de malha
-- $V$ = vetor de fontes de tensão
-
-<br>
-
----
-
-<br>
-
-> continua...
+&copy; 2025 Desmalha Project. Distribuído sob a licença MIT.

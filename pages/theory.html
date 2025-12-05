@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoria - Desmalha</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="../index.html" class="nav-brand">
+                <i class="fa-solid fa-bolt"></i> Desmalha
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Início</a></li>
+                <li><a href="mesh-calculator.html" class="nav-link">Análise de Malhas</a></li>
+                <li><a href="nodal-calculator.html" class="nav-link">Análise Nodal</a></li>
+                <li><a href="theory.html" class="nav-link active">Teoria</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Fundamentos Teóricos</h1>
+        
+        <div class="card" style="background: #e0f1ff; border-left: 4px solid #daa21b;">
+            <p><i class="fa-solid fa-book"></i> <strong>Dica:</strong> Para instruções detalhadas sobre como usar as calculadoras, incluindo convenções de sinais e exemplos práticos, consulte o <a href="../docs/user-manual.md" style="font-weight: bold;">Manual do Usuário</a>.</p>
+        </div>
+
+        <div class="card">
+            <h2>Análise de Malhas</h2>
+            <p>A Análise de Malhas é uma técnica usada para encontrar as correntes em um circuito planar. Baseia-se na Lei das Tensões de Kirchhoff (LTK), que afirma que a soma algébrica das tensões em qualquer laço fechado é igual a zero.</p>
+            <p><strong>Passos:</strong></p>
+            <ol style="margin-left: 20px;">
+                <li>Identifique as malhas elementares.</li>
+                <li>Atribua uma corrente de malha para cada malha (geralmente no sentido horário).</li>
+                <li>Aplique a LTK para cada malha, expressando as tensões em função das correntes.</li>
+                <li>Resolva o sistema de equações lineares resultante.</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>Análise Nodal</h2>
+            <p>A Análise Nodal é usada para determinar a tensão em cada nó de um circuito em relação a um nó de referência (terra). Baseia-se na Lei das Correntes de Kirchhoff (LCK).</p>
+            <p><strong>Passos:</strong></p>
+            <ol style="margin-left: 20px;">
+                <li>Identifique os nós principais do circuito.</li>
+                <li>Escolha um nó de referência (Terra, V=0).</li>
+                <li>Aplique a LCK para cada nó não-referência.</li>
+                <li>Expresse as correntes em função das tensões nodais usando a Lei de Ohm.</li>
+                <li>Resolva o sistema para encontrar as tensões.</li>
+            </ol>
+        </div>
+    </main>
+</body>
+</html>
