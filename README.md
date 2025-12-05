@@ -1,6 +1,8 @@
 # Desmalha - Calculadora de Circuitos Elétricos
 
-Bem-vindo ao **Desmalha**, uma ferramenta web estática para análise de circuitos elétricos DC utilizando os métodos de **Análise de Malhas** e **Análise Nodal**.
+> Uma ferramenta web estática para análise de circuitos elétricos CC (Corrente Contínua) utilizando os métodos de **Análise de Malhas** e **Análise Nodal**.
+
+<br>
 
 ## 🚀 Funcionalidades
 
@@ -16,10 +18,8 @@ Bem-vindo ao **Desmalha**, uma ferramenta web estática para análise de circuit
 - **Visualização de Matrizes**: Exibe a matriz do sistema linear gerado para fins educacionais.
 - **Design Responsivo**: Interface moderna adaptada para computadores e dispositivos móveis.
 - **Arquitetura Escalável**: Estrutura modular pronta para adicionar novos botões e funcionalidades.
-- **✅ Preservação de Valores (v1.4.1)**: 100% de preservação de dados em TODOS os cenários, incluindo o cenário inicial (zero-component).
-- **✅ Direções Independentes (v1.4.2)**: Componentes compartilhados suportam direções diferentes em cada localização.
-- **✅ Suporte a Terra/GND (v1.4.3)**: Sistema de compartilhamento agora permite selecionar explicitamente o Terra (GND) na Análise Nodal.
-- **✅ Persistência de Dados (v1.5)**: Seus dados são salvos automaticamente! Navegue entre páginas ou recarregue a aba sem perder seu circuito ou matriz.
+
+<br>
 
 ## 📂 Estrutura de Diretórios
 
@@ -40,6 +40,8 @@ Desmalha/
 └── tests/                  # Testes
 ```
 
+<br>
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **HTML5 & CSS3**: Estrutura semântica e estilização moderna.
@@ -47,12 +49,7 @@ Desmalha/
 - **FontAwesome**: Ícones vetoriais.
 - **Math.js / Algoritmo Próprio**: Resolução de sistemas lineares via Eliminação Gaussiana implementada nativamente em `matrix-operations.js`.
 
-## 🎨 Paleta de Cores
-
-- **Primária**: `#1d7ad0` (Azul Desmalha)
-- **Secundária**: `#91ade2` (Azul Suave)
-- **Fundo**: `#e0f1ff` (Azul Pálido)
-- **Destaque**: `#daa21b` (Dourado/Aviso)
+<br>
 
 ## 📖 Como Usar
 
@@ -81,60 +78,15 @@ Desmalha/
 7. O sistema valida automaticamente o formato (matriz n×(n+1))
 8. Clique em **Calcular** para resolver o sistema
 
+<br>
+
 ## ⚠️ Notas de Desenvolvimento
 
 - O projeto foi desenvolvido como um site estático (Frontend-only).
 - Bibliotecas externas grandes foram referenciadas via CDN para otimização.
 - A lógica de resolução matemática é executada inteiramente no navegador do cliente.
 
-## 📋 Funcionalidades Implementadas (v1.4)
-
-### ✅ Core Features
-- [x] Análise de Malhas funcional
-- [x] Análise Nodal funcional
-- [x] Resolução de sistemas lineares (Eliminação Gaussiana)
-- [x] Interface responsiva e moderna
-
-### ✅ Modos de Entrada
-- [x] **Modo Componentes** (v1.4 - NOVO Sistema de Compartilhamento):
-  - Interface hierárquica com cards por malha/nó
-  - Sistema de cores intuitivo (amarelo=resistor, azul=tensão, vermelho=corrente)
-  - **☑️ Checkbox de compartilhamento** em cada componente
-  - **Seleção visual** de múltiplas malhas/nós
-  - **Preservação automática** de valores (zero perda de dados)
-  - Badges e ícones para identificação rápida
-  - Contadores em tempo real
-  - Botões contextuais por malha/nó
-- [x] **Modo Matriz Direta** (v1.2): 
-  - Entrada de sistema linear [A|B] já montado
-  - Parser inteligente com validação em tempo real
-  - Exemplos pré-carregados
-- [x] Toggle visual entre modos com um clique
-
-### ✅ Controles de Direção
-- [x] Fontes de Tensão: Direção horária/anti-horária (Malhas)
-- [x] Fontes de Corrente: Entrando/Saindo do nó (Nodal)
-
-### ✅ Usabilidade
-- [x] Botão "Limpar Tudo" para reset rápido
-- [x] Botões de remoção individual por componente
-- [x] Visualização educacional de matrizes
-- [x] Feedback visual de validação (verde/amarelo/vermelho)
-- [x] Preview em tempo real (modo matriz)
-
-### ✅ Arquitetura Escalável
-- [x] Sistema modular com ES6 Modules
-- [x] Tipagem robusta com `data-type` attributes
-- [x] Estrutura preparada para novos botões e funcionalidades
-- [x] Parser extensível para diferentes formatos
-- [x] Documentação técnica completa
-
-### ✅ Documentação
-- [x] README.md com guia de uso
-- [x] Manual do Usuário detalhado (com seção Modo Matriz)
-- [x] Documentação Técnica com padrões de código
-- [x] Guia de Exemplos de Matrizes com casos práticos
-- [x] Exemplos de testes unitários
+<br>
 
 ## 📚 Documentação Adicional
 
@@ -142,13 +94,8 @@ Desmalha/
 - [Documentação Técnica](docs/technical-docs.md) - Arquitetura e padrões de desenvolvimento
 - [Página de Teoria](pages/theory.html) - Fundamentos teóricos de circuitos
 
-## 🔮 Próximos Passos Sugeridos
-
-1. Implementar sistema de salvamento de circuitos (localStorage)
-2. Adicionar editor gráfico de circuitos (drag-and-drop)
-3. Exportar resultados para PDF
-4. Adicionar mais exemplos práticos
-5. Implementar testes automatizados (Jest)
+<br>
 
 ---
+
 &copy; 2025 Desmalha Project. Distribuído sob a licença MIT.
